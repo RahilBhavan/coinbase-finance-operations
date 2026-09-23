@@ -6,7 +6,7 @@ Decision: consolidate every business projection behind one canonical reducer and
 
 Evidence: all 16 oracle cases pass through the same reducer used by the application; the independent consistency gate verifies source hashes, run identity, counts, labels, and policy metrics.
 
-Result: PASS — 51 automated tests, 16/16 oracle cases, and the generated consistency audit pass.
+Result: PASS — 58 automated tests, 16/16 oracle cases, 26 consistency checks, and deterministic release packaging pass.
 
 Decision: broaden queue analysis beyond a single FIFO/deadline-first comparison.
 

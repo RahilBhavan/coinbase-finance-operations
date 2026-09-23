@@ -97,6 +97,13 @@ class ConsistencyTests(unittest.TestCase):
             failed = {item["name"] for item in audit_artifacts(root)["checks"] if item["status"] == "FAIL"}
             self.assertIn("scenario_count", failed)
 
+    def test_malformed_json_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); self._write_fixture(root)
+            (root / "artifacts" / "generated" / "policy-results.json").write_text("{", encoding="utf-8")
+            with self.assertRaises(json.JSONDecodeError):
+                assert_artifacts_consistent(root)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,7 +18,7 @@ The project turns those ambiguities into an inspectable workflow containing:
 - a 3,600-scenario sensitivity experiment;
 - an interactive local operator desk;
 - JSON, CSV, SQLite, workbook, PDF, video, and reviewer artifacts;
-- 51 automated tests and a cross-artifact consistency audit.
+- 58 automated tests and a 26-check cross-artifact consistency audit.
 
 It is an analytical prototype and portfolio project. It is not a live Coinbase system and uses no wallet, customer data, real transaction, production service, or Coinbase internal process.
 
@@ -291,7 +291,7 @@ Important generated files include:
 
 The generated `reconciliation.csv` is populated from the oracle's expected financials. It is an expected reconciliation export, not an independently calculated transaction ledger. Reducer-calculated amounts are proven through oracle conformance.
 
-The consistency gate currently covers authoritative inputs and generated JSON, CSV, and HTML. It does not cryptographically bind the PDF, workbook, video, or ZIP.
+The consistency gate covers authoritative inputs and generated JSON, CSV, and HTML. The release command separately hashes the PDF, workbook, and video, builds a deterministic ZIP, tests the archive, and emits its SHA-256 checksum.
 
 ```mermaid
 flowchart TB

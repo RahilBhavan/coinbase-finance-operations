@@ -1,7 +1,7 @@
 """Build reproducible local artifacts for the simulated exception desk."""
 from __future__ import annotations
 import argparse, csv, hashlib, json, shutil
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 from .case_projection import oracle_conformance
@@ -105,7 +105,8 @@ def build(root: Path) -> dict[str, Any]:
     report.write_text(html, encoding="utf-8")
     shutil.copyfile(root / "web" / "operator-report.css", output / "operator-report.css")
 
-    summary = {**meta, "status": "simulated_build_complete", "generated_at": datetime.now(timezone.utc).isoformat(),
+    summary = {**meta, "status": "simulated_build_complete",
+        "latest_observed_at": max(event["observed_at"] for event in events),
         "fixture_count": len(groups), "event_count": len(events), "policy_workload_count": len(policy_cases),
         "oracle_cases_passed": sum(row["status"] == "PASS" for row in conformance),
         "scenario_count": scenario["scenario_count"],

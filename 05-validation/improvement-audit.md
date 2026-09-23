@@ -35,4 +35,4 @@ Use [`../artifacts/operator-task-protocol.md`](../artifacts/operator-task-protoc
 - Workload identity establishes a fair policy comparison, not realistic handling-time assumptions.
 - Automated checks cannot validate judgment, navigation clarity, or practitioner confidence.
 - No external reviewers, live Base transaction, production x402 integration, or customer-data evidence is claimed.
-- PDF, workbook, video, and ZIP consistency still rely on the separately versioned packaging manifest rather than direct content validation; the automated gate covers generated JSON, CSV, HTML, and their authoritative inputs.
+- The cross-artifact gate covers generated JSON, CSV, HTML, and authoritative inputs. The higher-level release command directly hashes the PDF, workbook, and video in `artifacts/package-manifest.json`, then hashes and tests the deterministic ZIP.

@@ -1,0 +1,21 @@
+{
+  "artifacts": [
+    {
+      "bytes": 6139,
+      "path": "artifacts/operations-memo.pdf",
+      "sha256": "e2a23eb147892cfce2bd2f717720ef99c70fecb67aa46749ec4d522c46880c16"
+    },
+    {
+      "bytes": 8790,
+      "path": "artifacts/reconciliation.xlsx",
+      "sha256": "12045f7ee565acd3bcfaccb1a499a83399a7de7142c3519aed830cffbd590fe5"
+    },
+    {
+      "bytes": 269063,
+      "path": "artifacts/demo.mp4",
+      "sha256": "bf9951f7de35d2feb2cecc03ec11a9ec3f0516b7b4cddabef503315c73ea735d"
+    }
+  ],
+  "run_id": "run-a6cf865a0efd58de",
+  "schema_version": 1
+}

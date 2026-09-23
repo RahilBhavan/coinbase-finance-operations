@@ -1,5 +1,6 @@
 import tempfile
 import unittest
+import re
 from pathlib import Path
 
 from exception_desk.export import render_operator_report, write_operator_report
@@ -106,6 +107,7 @@ class OperatorReportTests(unittest.TestCase):
             self.assertIn(fragment, report)
         self.assertNotIn("onclick=", report.lower())
         self.assertNotIn("javascript:", report.lower())
+        self.assertFalse(re.search(r'tabindex="[1-9]', report))
 
     def test_optional_cases_are_rendered_and_escaped(self):
         report = render_operator_report(
