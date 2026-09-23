@@ -38,7 +38,7 @@ class OperatorReportTests(unittest.TestCase):
         report = render_operator_report(self.projection, self.exception, self.policies)
 
         for label in (
-            "SIMULATED DATA — NOT LIVE — NO ACTIONS EXECUTED",
+            "SIMULATED DATA · NOT LIVE · NO ACTIONS EXECUTED",
             "Payment state",
             "observed",
             "Delivery state",
@@ -48,7 +48,7 @@ class OperatorReportTests(unittest.TestCase):
             "Forbidden actions",
             "Refund reservation state",
             "approved_reserved",
-            "Queue-policy comparison — absolute metrics",
+            "Queue-policy comparison: absolute metrics",
             "overdue_count",
             '<th scope="col">FIFO</th>',
             '<th scope="col">Deadline First</th>',

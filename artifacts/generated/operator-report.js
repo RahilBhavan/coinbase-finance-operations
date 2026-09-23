@@ -38,7 +38,7 @@
   document.querySelectorAll(".unsafe-action").forEach(function (button) {
     button.addEventListener("click", function () {
       var status = button.parentElement.querySelector(".refusal");
-      status.textContent = "REFUSED — original payment remains unresolved. Recharge was not sent.";
+      status.textContent = "REFUSED: original payment remains unresolved. Recharge was not sent.";
       status.classList.add("is-refused");
       button.textContent = "Recharge refused";
       button.disabled = true;

@@ -251,7 +251,7 @@ def render_operator_report(projection: Mapping[str, Any], exception: Mapping[str
 <body>
   <a class="skip-link" href="#case-workspace">Skip to case workspace</a>
   <header class="report-header">
-    <p class="simulation-label">SIMULATED DATA — NOT LIVE — NO ACTIONS EXECUTED. NOT AFFILIATED WITH OR ENDORSED BY COINBASE.</p>
+    <p class="simulation-label">SIMULATED DATA · NOT LIVE · NO ACTIONS EXECUTED. NOT AFFILIATED WITH OR ENDORSED BY COINBASE.</p>
     <h1>{title}</h1>
     <p class="subtitle">Operator decision support. Verify evidence and authorization before acting.</p>
     <p><a href="operations-memo.pdf">Download the operations memo (PDF)</a></p>
@@ -262,7 +262,7 @@ def render_operator_report(projection: Mapping[str, Any], exception: Mapping[str
 </html>
 """.format(title=escape(title), stylesheet=escape(stylesheet_href, quote=True),
            script=escape(script_src, quote=True), toolbar=toolbar, panels="".join(panels),
-           policy=_section("Queue-policy comparison — absolute metrics", _policy_table(policy_results), "policy-comparison"))
+           policy=_section("Queue-policy comparison: absolute metrics", _policy_table(policy_results), "policy-comparison"))
 
 
 def write_operator_report(output_path: Any, projection: Mapping[str, Any], exception: Mapping[str, Any],
