@@ -28,6 +28,7 @@ PACKAGE_ROOTS = (
 )
 PACKAGE_FILES = ("README.md", "MISSION.md", "RESOURCES.md", "LICENSE", "pyproject.toml")
 FIXED_ZIP_TIME = (2026, 9, 22, 0, 0, 0)
+TEXT_SUFFIXES = {".css", ".csv", ".html", ".js", ".json", ".jsonl", ".md", ".py", ".toml", ".txt", ".yml"}
 
 
 def _run_tests() -> None:
@@ -88,7 +89,10 @@ def _write_zip(destination: Path) -> None:
             info = zipfile.ZipInfo(relative, FIXED_ZIP_TIME)
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
-            archive.writestr(info, path.read_bytes())
+            content = path.read_bytes()
+            if path.suffix.lower() in TEXT_SUFFIXES:
+                content = content.replace(b"\r\n", b"\n")
+            archive.writestr(info, content)
 
 
 def release() -> dict[str, object]:
