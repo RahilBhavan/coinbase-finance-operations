@@ -16,6 +16,7 @@ work/demo.mov
 work/build_demo
 *.inspect.ndjson
 
+# Local-only notes, not part of the project
 02-research/prior-plans/
 06-execution/twitter-rollout.md
 outputs/twitter-rollout-plan.md
