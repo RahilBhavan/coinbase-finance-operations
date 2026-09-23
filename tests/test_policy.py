@@ -62,6 +62,16 @@ class PolicySimulationTests(unittest.TestCase):
         self.assertEqual(result["unfinished_control_failures"], 2)
         self.assertEqual(result["total_control_failures"], 2)
 
+    def test_operator_takes_a_case_that_fits_before_the_horizon(self):
+        cases = [case("long", 0, 100, 50, 0, 50), case("short", 0, 100, 5, 0, 5)]
+        result = simulate_policy(cases, "value_first", horizon=10)
+        self.assertEqual(["short"], [x["case_id"] for x in result["outcomes"]])
+        self.assertEqual(1, result["unfinished_count"])
+
+    def test_naive_timestamps_are_rejected(self):
+        with self.assertRaises(ValueError):
+            simulate_policy([case("naive", "2027-01-01T00:00:00", 100, 1, 0, 1)], "fifo")
+
     def test_service_time_sensitivity(self):
         base = [case("a", 0, 4, 4, 0, 2), case("b", 0, 5, 6, 0, 2)]
         half = [{**item, "duration_minutes": item["duration_minutes"] / 2} for item in base]

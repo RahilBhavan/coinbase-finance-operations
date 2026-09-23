@@ -18,7 +18,7 @@ The project turns those ambiguities into an inspectable workflow containing:
 - a 3,600-scenario sensitivity experiment;
 - an interactive local operator desk;
 - JSON, CSV, SQLite, workbook, PDF, video, and reviewer artifacts;
-- 58 automated tests and a 26-check cross-artifact consistency audit.
+- 64 automated tests and a 26-check cross-artifact consistency audit.
 
 It is an analytical prototype and portfolio project. It is not a live Coinbase system and uses no wallet, customer data, real transaction, production service, or Coinbase internal process.
 
@@ -248,9 +248,9 @@ The explicit base handling-time assumptions are 12 minutes for evidence mismatch
 
 Across the sweep:
 
-- value-first most often minimized overdue count: 51.6% win rate;
-- hybrid most often minimized value-weighted overdue time: 39.9%;
-- FIFO most often minimized p95 delay: 44.3%;
+- value-first most often minimized overdue count: 51.7% win rate;
+- hybrid most often minimized value-weighted overdue time: 40.5%;
+- FIFO most often minimized p95 delay: 50.0%;
 - total control failures tied because the seeded failures belong to the workload, not the queue order.
 
 Tied policies split one unit of scenario win credit. A win rate means “fractional share of scenarios with the minimum synthetic metric,” not the probability of real-world success.

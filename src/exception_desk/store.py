@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
@@ -22,10 +23,24 @@ class InvalidEvent(ValueError):
     """Raised when an event does not satisfy the envelope contract."""
 
 
+def parse_timestamp(value: str) -> datetime:
+    """Parse an ISO-8601 timestamp that carries an explicit UTC offset."""
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise InvalidEvent(f"invalid ISO timestamp: {value!r}") from exc
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise InvalidEvent(f"timestamp must include a UTC offset: {value!r}")
+    return parsed
+
+
 def validate_event(event: Mapping[str, Any]) -> None:
     for field in ("event_id", "type", "observed_at"):
         if not isinstance(event.get(field), str) or not event[field].strip():
             raise InvalidEvent(f"{field} must be a non-empty string")
+    parse_timestamp(event["observed_at"])
+    if isinstance(event.get("occurred_at"), str):
+        parse_timestamp(event["occurred_at"])
     if "data" in event and not isinstance(event["data"], Mapping):
         raise InvalidEvent("data must be an object when present")
 

@@ -45,6 +45,8 @@ class ReducerTests(unittest.TestCase):
 
     def test_refund_reservations_and_completed_never_exceed_capture(self):
         events = self.base() + [
+            event("c1", "chain_observed", 1, attempt_id="attempt-1", network="base",
+                  transaction_ref="0x1", log_index=0, amount_atomic=100),
             event("r1", "refund_reserved", 2, refund_id="r1", attempt_id="attempt-1", atomic_amount=70),
             event("r2", "refund_reserved", 3, refund_id="r2", attempt_id="attempt-1", atomic_amount=40),
         ]
@@ -72,6 +74,49 @@ class ReducerTests(unittest.TestCase):
         self.assertEqual("unknown", state["payment_attempts"]["attempt-1"]["outcome"])
         self.assertEqual({}, state["evidence_claims"])
         self.assertEqual(0, project_case(events)["expected_financials"]["captured_atomic"])
+
+    def test_refund_is_capped_at_canonical_chain_capture(self):
+        observed = self.base() + [
+            event("c1", "chain_observed", 2, attempt_id="attempt-1", network="base",
+                  transaction_ref="0x1", log_index=0, amount_atomic=10),
+        ]
+        refund = event("r1", "refund_settled", 4, refund_id="r1", order_id="order-1", amount_atomic=100)
+        cases = {
+            "partial capture": (observed + [refund], "refund_over_capture"),
+            "invalidated capture": (observed + [
+                event("x1", "chain_observation_invalidated", 3, order_id="order-1",
+                      transaction_ref="0x1", log_index=0), refund], "refund_capture_unknown"),
+        }
+        for name, (events, expected) in cases.items():
+            with self.subTest(name):
+                state = reduce_events(events)
+                self.assertEqual("proposed", state["refunds"]["r1"]["state"])
+                self.assertIn(expected, {x["type"] for x in state["exceptions"].values()})
+                self.assertEqual(0, project_case(events)["expected_financials"]["completed_refund_atomic"])
+
+    def test_refund_amount_key_is_kept_in_projection(self):
+        events = self.base() + [
+            event("c1", "chain_observed", 2, attempt_id="attempt-1", network="base",
+                  transaction_ref="0x1", log_index=0, amount_atomic=100),
+            event("r1", "refund_settled", 3, refund_id="r1", order_id="order-1", amount=40),
+        ]
+        self.assertEqual(40, reduce_events(events)["refunds"]["r1"]["atomic_amount"])
+        self.assertEqual(40, project_case(events)["expected_financials"]["completed_refund_atomic"])
+
+    def test_events_sort_by_instant_and_naive_times_are_rejected(self):
+        later_utc = {**event("o1", "order_created", 0, order_id="order-1", expected_atomic_amount=100),
+                     "observed_at": "2027-01-01T00:30:00+00:00"}
+        earlier_offset = {**event("a1", "payment_attempt_submitted", 0, attempt_id="attempt-1", order_id="order-1"),
+                          "observed_at": "2027-01-01T01:00:00+02:00"}  # 23:00Z the previous day
+        self.assertEqual(["a1", "o1"], reduce_events([later_utc, earlier_offset])["applied_event_ids"])
+        with self.assertRaises(InvalidEvent):
+            reduce_events([{**later_utc, "observed_at": "2027-01-01T00:30:00"}])
+
+    def test_duplicate_event_id_with_different_content_is_rejected(self):
+        original = event("o1", "order_created", 0, order_id="order-1", expected_atomic_amount=100)
+        changed = event("o1", "order_created", 0, order_id="order-1", expected_atomic_amount=999)
+        with self.assertRaises(InvalidEvent):
+            reduce_events([original, changed])
 
 
 class StoreTests(unittest.TestCase):

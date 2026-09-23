@@ -16,6 +16,8 @@ import math
 from statistics import median
 from typing import Any, Iterable, Mapping, Optional
 
+from .store import parse_timestamp
+
 
 REQUIRED_FIELDS = (
     "case_id",
@@ -34,12 +36,11 @@ def _minutes(value: Any) -> float:
     if isinstance(value, (int, float)):
         result = float(value)
     elif isinstance(value, datetime):
+        if value.tzinfo is None or value.utcoffset() is None:
+            raise ValueError("datetime values must include a UTC offset")
         result = value.timestamp() / 60.0
     elif isinstance(value, str):
-        try:
-            result = datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp() / 60.0
-        except ValueError as exc:
-            raise ValueError(f"invalid ISO time: {value!r}") from exc
+        result = parse_timestamp(value).timestamp() / 60.0
     else:
         raise ValueError("time values must be numbers, datetimes, or ISO strings")
     if not math.isfinite(result):
@@ -142,13 +143,16 @@ def simulate_policy(
     heapq.heapify(operator_heap)
     while pending and operator_heap:
         now, operator_id = heapq.heappop(operator_heap)
-        available = [case for case in pending if case["actionable_at"] <= now]
+        # Only cases that can still finish by the horizon compete; an operator
+        # whose remaining time fits no case retires.
+        feasible = [case for case in pending
+                    if max(now, case["actionable_at"]) + case["duration_minutes"] <= end]
+        if not feasible:
+            continue
+        available = [case for case in feasible if case["actionable_at"] <= now]
         if not available:
-            next_time = min(case["actionable_at"] for case in pending)
-            if next_time > end:
-                break
-            now = max(now, next_time)
-            available = [case for case in pending if case["actionable_at"] <= now]
+            now = min(case["actionable_at"] for case in feasible)
+            available = [case for case in feasible if case["actionable_at"] <= now]
 
         if policy == "fifo":
             chosen = min(available, key=lambda case: (case["opened_at"], case["case_id"]))
@@ -173,11 +177,6 @@ def simulate_policy(
                 ),
             )
         completion = now + chosen["duration_minutes"]
-        if completion > end:
-            # This operator has no remaining capacity. Other operators may
-            # still be able to complete a different decision at an earlier
-            # clock time, so do not terminate the whole simulation.
-            continue
         pending.remove(chosen)
         overdue = max(0.0, completion - chosen["deadline"])
         outcomes.append(

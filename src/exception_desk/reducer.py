@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 from typing import Any, Iterable, Mapping
 
-from .store import validate_event
+from .store import InvalidEvent, parse_timestamp, validate_event
 
 
 BUSINESS_EXCEPTIONS = {
@@ -74,7 +75,8 @@ def initial_state() -> dict[str, Any]:
 def reduce_events(events: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     """Project events in canonical evidence-availability order.
 
-    Duplicate IDs are ignored, making replay idempotent.  All amounts remain
+    Identical duplicate IDs are ignored, making replay idempotent; reusing an
+    ID with different content is rejected, as in the event store.  All amounts remain
     integers in atomic units; invalid control transitions open an exception and
     do not mutate the protected balance or entitlement state.
     """
@@ -82,15 +84,18 @@ def reduce_events(events: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     for event in materialized:
         validate_event(event)
     materialized.sort(key=lambda e: (
-        e["observed_at"], e.get("sequence", 0),
-        e.get("occurred_at", e["observed_at"]), e["event_id"]
+        parse_timestamp(e["observed_at"]), e.get("sequence", 0),
+        parse_timestamp(e.get("occurred_at", e["observed_at"])), e["event_id"]
     ))
     state = initial_state()
-    seen: set[str] = set()
+    seen: dict[str, str] = {}
     for event in materialized:
+        content = json.dumps(event, sort_keys=True, separators=(",", ":"))
         if event["event_id"] in seen:
+            if seen[event["event_id"]] != content:
+                raise InvalidEvent(f"event_id {event['event_id']!r} has conflicting content")
             continue
-        seen.add(event["event_id"])
+        seen[event["event_id"]] = content
         state["applied_event_ids"].append(event["event_id"])
         _apply(state, event, _kind(event), _body(event))
     return state
@@ -133,11 +138,7 @@ def project_case(events: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     elif payment == "observed" and fulfillment == "prepared" and exception_type is None:
         exception_type, actionable = "delivery_pending", True
 
-    captured = sum(
-        int(observation.get("amount_atomic", 0))
-        for observation in state["chain_observations"].values()
-        if observation.get("canonical", True)
-    )
+    captured = _canonical_capture(state)
     reserved = sum(
         int(refund.get("atomic_amount", 0)) for refund in state["refunds"].values()
         if refund.get("state") in {"approved_reserved", "submitted_unknown"}
@@ -157,6 +158,16 @@ def project_case(events: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
             "completed_refund_atomic": completed,
         },
     }
+
+
+def _canonical_capture(state: Mapping[str, Any], attempt_id: str | None = None) -> int:
+    """Sum canonical on-chain amounts, optionally for one payment attempt."""
+    return sum(
+        int(observation.get("amount_atomic", 0))
+        for observation in state["chain_observations"].values()
+        if observation.get("canonical", True)
+        and (attempt_id is None or str(observation.get("attempt_id")) == attempt_id)
+    )
 
 
 def _apply(state: dict[str, Any], event: Mapping[str, Any], kind: str,
@@ -234,10 +245,7 @@ def _apply(state: dict[str, Any], event: Mapping[str, Any], kind: str,
             candidates = [key for key, value in state["payment_attempts"].items()
                           if value.get("order_id") == order_id]
             payment_id = candidates[0] if candidates else ""
-        _apply_refund(state, event, kind, {
-            **data, "payment_id": payment_id,
-            "atomic_amount": data.get("amount_atomic", data.get("atomic_amount")),
-        })
+        _apply_refund(state, event, kind, {**data, "payment_id": payment_id})
         if kind == "refund_submitted_unknown":
             _record_business_exception(state, event, "refund_outcome_unknown", False, order_id)
         return
@@ -368,7 +376,8 @@ def _apply_refund(state: dict[str, Any], event: Mapping[str, Any], kind: str,
                   data: Mapping[str, Any]) -> None:
     refund_id = str(data["refund_id"])
     payment_id = str(data.get("payment_id", data.get("attempt_id", "")))
-    amount = data.get("amount", data.get("atomic_amount"))
+    amount = next((data[key] for key in ("amount_atomic", "atomic_amount", "amount")
+                   if data.get(key) is not None), None)
     if not isinstance(amount, int) or isinstance(amount, bool) or amount < 0:
         raise ValueError("refund amount must be a non-negative integer in atomic units")
     refund = state["refunds"].setdefault(refund_id, {
@@ -382,21 +391,20 @@ def _apply_refund(state: dict[str, Any], event: Mapping[str, Any], kind: str,
         "refund_failed_released": "failed_released",
     }.get(kind)
     if target in {"approved_reserved", "submitted_unknown", "settled"}:
-        attempt = state["payment_attempts"].get(payment_id, {})
-        order = state["orders"].get(attempt.get("order_id", ""), {})
-        capture = data.get("captured_amount", attempt.get("captured_amount", order.get("expected_atomic_amount")))
-        if not isinstance(capture, int):
-            _exception(state, event, "refund_capture_unknown", refund_id, "capture amount is unavailable")
+        capture = _canonical_capture(state, payment_id)
+        if capture <= 0:
+            _exception(state, event, "refund_capture_unknown", refund_id, "no canonical on-chain capture")
             return
         protected = sum(
             item["atomic_amount"] for rid, item in state["refunds"].items()
             if rid != refund_id and item.get("payment_id") == payment_id
             and item.get("state") in {"approved_reserved", "submitted_unknown", "settled"}
         )
-        if protected + refund["atomic_amount"] > capture:
+        if protected + amount > capture:
             _exception(state, event, "refund_over_capture", refund_id,
                        "completed refunds plus active reservations exceed capture")
             return
     if target:
         refund.update(dict(data))
+        refund["atomic_amount"] = amount
         refund["state"] = target
