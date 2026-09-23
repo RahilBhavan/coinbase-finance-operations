@@ -254,6 +254,7 @@ def render_operator_report(projection: Mapping[str, Any], exception: Mapping[str
     <p class="simulation-label">SIMULATED DATA — NOT LIVE — NO ACTIONS EXECUTED. NOT AFFILIATED WITH OR ENDORSED BY COINBASE.</p>
     <h1>{title}</h1>
     <p class="subtitle">Operator decision support. Verify evidence and authorization before acting.</p>
+    <p><a href="operations-memo.pdf">Download the operations memo (PDF)</a></p>
   </header>
   <main id="case-workspace" tabindex="-1">{toolbar}{panels}{policy}</main>
   <footer>SIMULATED • Independent synthetic case study • Not affiliated with or endorsed by Coinbase • No live actions</footer>

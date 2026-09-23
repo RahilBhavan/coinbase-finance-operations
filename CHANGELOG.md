@@ -15,6 +15,6 @@
 - Value-weighted overdue time is shown in USDC-minutes in the report, README, memo, and workbook.
 - The report, memo, and README state that the project is not affiliated with or endorsed by Coinbase.
 - The repository is renamed to `x402-exception-desk`, and the release archive is now `outputs/x402-exception-desk-package.zip`.
-- The operator report has link-preview metadata, a favicon, and a social card.
+- The operator report has link-preview metadata, a favicon, a social card, and a link to the memo PDF, which the site now publishes.
 - The memo PDF builds with fixed dates and document ID, so rebuilds are byte-identical.
 - A weekly link check and Dependabot updates for GitHub Actions run in CI.

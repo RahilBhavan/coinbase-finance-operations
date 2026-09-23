@@ -101,6 +101,7 @@ class OperatorReportTests(unittest.TestCase):
             'aria-live="polite"',
             'aria-describedby="unsafe-help-0"',
             'href="#case-workspace"',
+            'href="operations-memo.pdf"',
             '<caption>Queue policy outcomes</caption>',
             'scope="col"',
         ):
