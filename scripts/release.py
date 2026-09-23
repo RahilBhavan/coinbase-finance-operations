@@ -27,6 +27,7 @@ PACKAGE_ROOTS = (
     "06-execution", "artifacts", "data", "scripts", "src", "tests", "web",
 )
 PACKAGE_FILES = ("README.md", "MISSION.md", "RESOURCES.md", "LICENSE", "pyproject.toml")
+PRIVATE_PATHS = ("02-research/prior-plans/", "06-execution/twitter-rollout.md")
 FIXED_ZIP_TIME = (2026, 9, 22, 0, 0, 0)
 TEXT_SUFFIXES = {".css", ".csv", ".html", ".js", ".json", ".jsonl", ".md", ".py", ".toml", ".txt", ".yml"}
 
@@ -73,6 +74,7 @@ def _package_paths() -> list[Path]:
             and path.suffix not in {".pyc", ".pyo"}
             and path.name != ".DS_Store"
             and not path.name.endswith(".inspect.ndjson")
+            and not path.relative_to(ROOT).as_posix().startswith(PRIVATE_PATHS)
         )
 
     paths = [ROOT / name for name in PACKAGE_FILES if releasable(ROOT / name)]

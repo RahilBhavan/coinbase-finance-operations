@@ -3,6 +3,7 @@
 ## Strongest weaknesses
 
 1. **Synthetic realism.** Protocol-shaped records do not establish realistic incident frequency, staffing, or loss. Mitigation: scenario grid and sensitivity, no savings claim.
+2. **Role uncertainty.** The current Finance Operations role scope is unverified. Mitigation: treat the project as an analogy and revisit it once the role description is confirmed.
 3. **Finality policy is business-specific.** Documentation describes stages, not which stage a fictional seller should accept. Mitigation: declare the release rule and rerun at a stronger stage.
 4. **Delivery proof is application-owned.** x402 settlement does not prove client receipt. Mitigation: explicit resource digest, delivery attempt, and acknowledgment model.
 5. **Queue metric gaming.** Deadline-first can improve counts while delaying a high-value case. Mitigation: adverse workload, value-weighted metric, unfinished value, and narrow-policy fallback.

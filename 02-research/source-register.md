@@ -1,6 +1,6 @@
 # Source register
 
-Reviewed 2026-09-20. Technical pages are mutable; freeze a commit/release before implementation. The earlier plans were copied unchanged into `prior-plans/`.
+Reviewed 2026-09-20. Technical pages are mutable; freeze a commit/release before implementation.
 
 | ID | Primary source | Evidence used | Date/evidence status | Design consequence |
 |---|---|---|---|---|
