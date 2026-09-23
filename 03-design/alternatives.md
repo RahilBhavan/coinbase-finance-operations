@@ -10,7 +10,7 @@ Scores are planning judgments (1 weak–5 strong), not measured outcomes.
 
 ## Selection: A
 
-It makes late evidence, replay, restart, and auditability first-class without turning a portfolio build into distributed-systems theater. Payment and fulfillment evolve independently; a derived case view can be rebuilt from events. The queue policy is testable against the same immutable workload.
+It makes late evidence, replay, restart, and auditability first-class without turning a prototype into distributed-systems theater. Payment and fulfillment evolve independently; a derived case view can be rebuilt from events. The queue policy is testable against the same immutable workload.
 
 ## Rejected tradeoffs
 

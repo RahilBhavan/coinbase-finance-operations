@@ -8,7 +8,7 @@
 4. **Delivery proof is application-owned.** x402 settlement does not prove client receipt. Mitigation: explicit resource digest, delivery attempt, and acknowledgment model.
 5. **Queue metric gaming.** Deadline-first can improve counts while delaying a high-value case. Mitigation: adverse workload, value-weighted metric, unfinished value, and narrow-policy fallback.
 6. **Usability evidence may be weak.** Three convenience reviewers cannot validate production usability. Mitigation: report task errors without broad claims; labeled self-review if nobody participates.
-7. **Event sourcing can become portfolio theater.** Mitigation: one SQLite database, one reducer, no services or live integration in milestone one.
+7. **Event sourcing can become engineering theater.** Mitigation: one SQLite database, one reducer, no services or live integration in milestone one.
 
 ## Scope cuts, in order
 

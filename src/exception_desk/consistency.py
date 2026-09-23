@@ -2,7 +2,7 @@
 
 The checker is deliberately independent of the build command.  A build can call
 ``assert_artifacts_consistent`` after writing its outputs; reviewers can call the
-same function against an unpacked portfolio.  It validates identity and counts,
+same function against an unpacked package.  It validates identity and counts,
 not merely the presence of files.
 """
 

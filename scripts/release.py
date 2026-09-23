@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build, verify, and package the portfolio with only the Python standard library."""
+"""Build, verify, and package the project with only the Python standard library."""
 from __future__ import annotations
 
 import hashlib
@@ -113,10 +113,10 @@ def release() -> dict[str, object]:
     outputs = ROOT / "outputs"
     for relative in RICH_ARTIFACTS:
         shutil.copy2(ROOT / relative, outputs / Path(relative).name)
-    archive = outputs / "coinbase-finance-operations-portfolio.zip"
+    archive = outputs / "coinbase-finance-operations-package.zip"
     _write_zip(archive)
     archive_hash = sha256_file(archive)
-    (outputs / "coinbase-finance-operations-portfolio.zip.sha256").write_text(
+    (outputs / "coinbase-finance-operations-package.zip.sha256").write_text(
         f"{archive_hash}  {archive.name}\n", encoding="utf-8"
     )
     with zipfile.ZipFile(archive) as packaged:

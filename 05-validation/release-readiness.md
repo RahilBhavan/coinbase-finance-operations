@@ -2,7 +2,7 @@
 
 ## Decision
 
-The repository is ready to share as a **synthetic portfolio project**. It is not production-ready and does not claim Coinbase endorsement, live x402 interoperability, or practitioner validation. The first policy gate did not justify replacing FIFO; that negative result is retained rather than optimized away.
+The repository is ready to share as a **independent synthetic case study**. It is not production-ready and does not claim Coinbase endorsement, live x402 interoperability, or practitioner validation. The first policy gate did not justify replacing FIFO; that negative result is retained rather than optimized away.
 
 ## Verified evidence
 
@@ -11,7 +11,7 @@ The repository is ready to share as a **synthetic portfolio project**. It is not
 | Full automated suite | `PYTHONPATH=src python3 -m unittest discover -s tests -v` | PASS — 64 tests |
 | Reproducible build | `PYTHONPATH=src python3 -m exception_desk.cli --root .` | PASS — stable run `run-a6cf865a0efd58de`; 16 cases; 65 events; 3,600 scenarios |
 | Cross-artifact gate | `PYTHONPATH=src python3 -c 'from pathlib import Path; from exception_desk.consistency import assert_artifacts_consistent; print(assert_artifacts_consistent(Path.cwd())["status"])'` | PASS — 26 checks |
-| Complete release | `python3 scripts/release.py` | PASS — deterministic ZIP and checksum in `outputs/coinbase-finance-operations-portfolio.zip.sha256` |
+| Complete release | `python3 scripts/release.py` | PASS — deterministic ZIP and checksum in `outputs/coinbase-finance-operations-package.zip.sha256` |
 
 The gate verifies authoritative input hashes, shared run identity, case/event/oracle counts, four-policy CSV/JSON agreement, scenario count, synthetic labels, and the boundary that chain evidence does not prove delivery.
 
