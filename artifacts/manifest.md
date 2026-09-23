@@ -20,6 +20,6 @@ Prepared 2026-09-20 and revalidated 2026-09-22. The synthetic build exists in `g
 | `operator-task-protocol.md` | Ready | external three-reviewer protocol; not yet executed |
 | `package-manifest.json` | Verified | SHA-256 and byte length for PDF, workbook, and video |
 
-`../outputs/coinbase-finance-operations-package.zip.sha256` authenticates the refreshed deterministic ZIP as a whole.
+`../outputs/x402-exception-desk-package.zip.sha256` authenticates the refreshed deterministic ZIP as a whole.
 
 The analytical package is complete and locally reproducible. External usability validation and live protocol interoperability remain explicitly out of scope; neither is required to inspect the decision. Planned criteria are defined in [`../04-deliverables/artifact-plan.md`](../04-deliverables/artifact-plan.md).

@@ -122,10 +122,10 @@ def release() -> dict[str, object]:
     outputs = ROOT / "outputs"
     for relative in RICH_ARTIFACTS:
         shutil.copy2(ROOT / relative, outputs / Path(relative).name)
-    archive = outputs / "coinbase-finance-operations-package.zip"
+    archive = outputs / "x402-exception-desk-package.zip"
     _write_zip(archive)
     archive_hash = sha256_file(archive)
-    (outputs / "coinbase-finance-operations-package.zip.sha256").write_text(
+    (outputs / "x402-exception-desk-package.zip.sha256").write_text(
         f"{archive_hash}  {archive.name}\n", encoding="utf-8"
     )
     with zipfile.ZipFile(archive) as packaged:

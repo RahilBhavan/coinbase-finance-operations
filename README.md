@@ -1,8 +1,8 @@
 # x402 payment exception desk
 
-[![verify](https://github.com/RahilBhavan/coinbase-finance-operations/actions/workflows/verify.yml/badge.svg)](https://github.com/RahilBhavan/coinbase-finance-operations/actions/workflows/verify.yml)
+[![verify](https://github.com/RahilBhavan/x402-exception-desk/actions/workflows/verify.yml/badge.svg)](https://github.com/RahilBhavan/x402-exception-desk/actions/workflows/verify.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-**Live operator report: https://rahilbhavan.github.io/coinbase-finance-operations/**
+**Live operator report: https://rahilbhavan.github.io/x402-exception-desk/**
 
 A synthetic settlement-to-delivery exception desk for x402 payments on Base.
 
@@ -52,10 +52,10 @@ The event log is the evidence boundary. An append-only SQLite store holds the ev
 
 ## What's in it
 
-- [Operator report](https://rahilbhavan.github.io/coinbase-finance-operations/): each case's evidence timeline, payment, delivery, and refund state, the allowed and forbidden next actions, and the policy comparison. Source: [`artifacts/generated/operator-report.html`](artifacts/generated/operator-report.html).
+- [Operator report](https://rahilbhavan.github.io/x402-exception-desk/): each case's evidence timeline, payment, delivery, and refund state, the allowed and forbidden next actions, and the policy comparison. Source: [`artifacts/generated/operator-report.html`](artifacts/generated/operator-report.html).
 - [Decision memo (PDF)](artifacts/operations-memo.pdf): the policy decision, the evidence, and the strongest argument against FIFO.
 - [Reconciliation workbook (XLSX)](artifacts/reconciliation.xlsx): cases, formulas, and the four-policy results.
-- [Release package (ZIP)](outputs/coinbase-finance-operations-package.zip), with its [SHA-256 checksum](outputs/coinbase-finance-operations-package.zip.sha256): code, data, docs, and artifacts in one deterministic archive.
+- [Release package (ZIP)](outputs/x402-exception-desk-package.zip), with its [SHA-256 checksum](outputs/x402-exception-desk-package.zip.sha256): code, data, docs, and artifacts in one deterministic archive.
 - [Demo video](artifacts/demo.mp4), [state model](artifacts/state-model.md), [operator runbook](artifacts/operator-runbook.md), and [validation report](artifacts/validation-report.md).
 
 ## Run it
@@ -63,8 +63,8 @@ The event log is the evidence boundary. An append-only SQLite store holds the ev
 Python 3.9 or later, no third-party packages.
 
 ```sh
-git clone https://github.com/RahilBhavan/coinbase-finance-operations.git
-cd coinbase-finance-operations
+git clone https://github.com/RahilBhavan/x402-exception-desk.git
+cd x402-exception-desk
 python3 scripts/release.py
 ```
 
