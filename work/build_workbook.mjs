@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import fs from "node:fs/promises";
 import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 
@@ -100,3 +101,4 @@ await fs.mkdir(outDir,{recursive:true}); await fs.mkdir(userOut,{recursive:true}
 const blob = await SpreadsheetFile.exportXlsx(wb);
 await blob.save(`${outDir}/reconciliation.xlsx`);
 await blob.save(`${userOut}/reconciliation.xlsx`);
+execFileSync("python3", [`${root}/scripts/scrub_workbook_metadata.py`, `${outDir}/reconciliation.xlsx`, `${userOut}/reconciliation.xlsx`], {stdio:"inherit"});
