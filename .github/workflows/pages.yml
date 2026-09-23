@@ -23,6 +23,7 @@ jobs:
           mkdir -p _site
           cp artifacts/generated/operator-report.html _site/index.html
           cp artifacts/generated/operator-report.css artifacts/generated/operator-report.js _site/
+          cp docs/social-card.png _site/
       - uses: actions/upload-pages-artifact@v3
         with: { path: _site }
   deploy:

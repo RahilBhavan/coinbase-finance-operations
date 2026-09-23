@@ -4,6 +4,8 @@
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 **Live operator report: https://rahilbhavan.github.io/x402-exception-desk/**
 
+[![Operator report showing case hp-01 with its payment, delivery, and refund states](docs/screenshot.png)](https://rahilbhavan.github.io/x402-exception-desk/)
+
 A synthetic settlement-to-delivery exception desk for x402 payments on Base.
 
 ## The answer
@@ -100,3 +102,10 @@ The release checks the memo, workbook, and video but does not rebuild them. Rebu
 ## License
 
 [MIT](LICENSE).
+
+## Related projects
+
+- [spine](https://github.com/RahilBhavan/spine): live stress test of Coinbase's Morpho loan book on Base.
+- [mara-credit-case](https://github.com/RahilBhavan/mara-credit-case): credit committee case on a $5M secured revolver to MARA Holdings.
+- [coin-revenue-bridge](https://github.com/RahilBhavan/coin-revenue-bridge): Q3 to Q4 2024 Coinbase consumer revenue bridge from SEC filings.
+- [Crypto finance projects hub](https://rahilbhavan.com/crypto-finance)
