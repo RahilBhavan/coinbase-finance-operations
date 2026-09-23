@@ -10,7 +10,7 @@ A synthetic settlement-to-delivery exception desk for x402 payments on Base.
 
 When payment evidence and delivery evidence disagree, which case should an operator handle first, and what evidence makes a retry, recovery, refund, or closure safe? The desk replays 65 synthetic events across 16 incidents through one deterministic reducer, then runs the 9 actionable cases through four queue policies on the same workload.
 
-| Policy | Overdue cases | Median delay (min) | p95 delay (min) | Value-weighted overdue (USDC x min) | Control failures |
+| Policy | Overdue cases | Median delay (min) | p95 delay (min) | Value-weighted overdue (USDC-minutes) | Control failures |
 |---|---|---|---|---|---|
 | FIFO (baseline) | 6 | 66.1 | 107.1 | 4,428.9 | 0 |
 | Deadline-first (proposed) | 6 | 55.1 | 107.1 | 1,582.2 | 0 |
@@ -55,7 +55,7 @@ The event log is the evidence boundary. An append-only SQLite store holds the ev
 - [Operator report](https://rahilbhavan.github.io/coinbase-finance-operations/): each case's evidence timeline, payment, delivery, and refund state, the allowed and forbidden next actions, and the policy comparison. Source: [`artifacts/generated/operator-report.html`](artifacts/generated/operator-report.html).
 - [Decision memo (PDF)](artifacts/operations-memo.pdf): the policy decision, the evidence, and the strongest argument against FIFO.
 - [Reconciliation workbook (XLSX)](artifacts/reconciliation.xlsx): cases, formulas, and the four-policy results.
-- [Release package (ZIP)](outputs/coinbase-finance-operations-portfolio.zip), with its [SHA-256 checksum](outputs/coinbase-finance-operations-portfolio.zip.sha256): code, data, docs, and artifacts in one deterministic archive.
+- [Release package (ZIP)](outputs/coinbase-finance-operations-package.zip), with its [SHA-256 checksum](outputs/coinbase-finance-operations-package.zip.sha256): code, data, docs, and artifacts in one deterministic archive.
 - [Demo video](artifacts/demo.mp4), [state model](artifacts/state-model.md), [operator runbook](artifacts/operator-runbook.md), and [validation report](artifacts/validation-report.md).
 
 ## Run it

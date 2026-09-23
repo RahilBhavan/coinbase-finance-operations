@@ -144,6 +144,18 @@ class OperatorReportTests(unittest.TestCase):
 
         self.assertIn("<td>8</td><td>2</td>", report)
 
+    def test_formats_policy_floats_and_value_weighted_unit(self):
+        policies = {"fifo": {"value_weighted_overdue_minutes": 4428900000.11772,
+                             "p95_resolution_delay_minutes": 107.05000000074506}}
+
+        report = render_operator_report(self.projection, self.exception, policies)
+
+        self.assertIn("value_weighted_overdue (USDC-minutes)", report)
+        self.assertIn("<td>4,428.9</td>", report)
+        self.assertIn("<td>107.1</td>", report)
+        self.assertNotIn("4428900000", report)
+        self.assertIn("NOT AFFILIATED WITH OR ENDORSED BY COINBASE", report)
+
     def test_renders_every_policy_in_the_comparison(self):
         policies = {
             **self.policies,

@@ -20,7 +20,7 @@ The project turns those ambiguities into an inspectable workflow containing:
 - JSON, CSV, SQLite, workbook, PDF, video, and reviewer artifacts;
 - 64 automated tests and a 26-check cross-artifact consistency audit.
 
-It is an analytical prototype and portfolio project. It is not a live Coinbase system and uses no wallet, customer data, real transaction, production service, or Coinbase internal process.
+It is an analytical prototype and independent synthetic case study. It is not a live Coinbase system and uses no wallet, customer data, real transaction, production service, or Coinbase internal process.
 
 ## The nine ideas to remember
 
@@ -223,12 +223,12 @@ The metrics are overdue count, median and p95 resolution delay, value-weighted o
 
 ### Initial nine-case result
 
-| Policy | Overdue | Median delay | p95 delay | Value-weighted overdue minutes |
+| Policy | Overdue | Median delay (min) | p95 delay (min) | Value-weighted overdue (USDC-minutes) |
 |---|---:|---:|---:|---:|
-| FIFO | 6 | 66.05 | 107.05 | 4,428,900,000.12 |
-| Deadline-first | 6 | 55.05 | 107.05 | 1,582,200,000.11 |
-| Value-first | 4 | 47.05 | 137.05 | 1,371,900,000.06 |
-| Hybrid | 4 | 77.05 | 127.05 | 982,100,000.06 |
+| FIFO | 6 | 66.1 | 107.1 | 4,428.9 |
+| Deadline-first | 6 | 55.1 | 107.1 | 1,582.2 |
+| Value-first | 4 | 47.1 | 137.1 | 1,371.9 |
+| Hybrid | 4 | 77.1 | 127.1 | 982.1 |
 
 The original proposal was deadline-first. Its predeclared gate required at least 15% fewer overdue cases than FIFO. Both produced six, so the proposal failed its own gate. Retaining FIFO for that comparison was the disciplined result.
 
@@ -344,7 +344,7 @@ Tests prove the implemented behavior for the declared synthetic corpus. They do 
 | `reviewer-packet.md` | Suggested review order and questions |
 | `source-register.csv` | Source provenance and limitations |
 | `daily-build-log.md` | Evidence-backed record of major changes |
-| Portfolio ZIP | Portable package of the project |
+| Release package ZIP | Portable package of the project |
 
 ## How the project was developed
 

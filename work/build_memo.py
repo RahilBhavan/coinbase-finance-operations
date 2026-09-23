@@ -22,7 +22,7 @@ small = ParagraphStyle("Small", parent=body, fontSize=8, leading=10)
 def footer(canvas, doc):
     canvas.saveState(); canvas.setStrokeColor(colors.HexColor("#D9E1E8")); canvas.line(0.65*inch,0.55*inch,7.85*inch,0.55*inch)
     canvas.setFont("Helvetica",7.5); canvas.setFillColor(colors.HexColor("#667A89"))
-    canvas.drawString(0.65*inch,0.36*inch,"Synthetic portfolio project - not Coinbase policy or production evidence")
+    canvas.drawString(0.65*inch,0.36*inch,"Independent synthetic case study | Rahil Bhavan | Not affiliated with or endorsed by Coinbase")
     canvas.drawRightString(7.85*inch,0.36*inch,f"{doc.page}")
     canvas.restoreState()
 
@@ -36,9 +36,9 @@ story = [
         ["Overdue cases", "6", "6", "No count improvement"],
         ["Median resolution delay", "66.1 min", "55.1 min", "Improved"],
         ["P95 resolution delay", "107.1 min", "107.1 min", "Unchanged"],
-        ["Value-weighted overdue", "4.43bn", "1.58bn", "Improved in this scenario"],
+        ["Value-weighted overdue (USDC-minutes)", "4,428.9", "1,582.2", "Improved in this scenario"],
         ["Control failures", "0", "0", "Constraint preserved"],
-    ], colWidths=[1.65*inch,0.9*inch,1.15*inch,2.85*inch], repeatRows=1, style=TableStyle([
+    ], colWidths=[2.3*inch,0.85*inch,1.1*inch,2.3*inch], repeatRows=1, style=TableStyle([
         ("BACKGROUND",(0,0),(-1,0),navy),("TEXTCOLOR",(0,0),(-1,0),colors.white),("FONTNAME",(0,0),(-1,0),"Helvetica-Bold"),
         ("FONTNAME",(0,1),(-1,-1),"Helvetica"),("FONTSIZE",(0,0),(-1,-1),8.2),("LEADING",(0,0),(-1,-1),10),
         ("GRID",(0,0),(-1,-1),0.35,colors.HexColor("#D9E1E8")),("BACKGROUND",(0,2),(-1,2),pale),("BACKGROUND",(0,4),(-1,4),pale),
@@ -77,5 +77,5 @@ story = [
 ]
 
 for target in (out, user_out):
-    doc = SimpleDocTemplate(str(target), pagesize=LETTER, rightMargin=0.65*inch, leftMargin=0.65*inch, topMargin=0.58*inch, bottomMargin=0.7*inch, title="Settlement exception desk decision memo", author="Portfolio project")
+    doc = SimpleDocTemplate(str(target), pagesize=LETTER, rightMargin=0.65*inch, leftMargin=0.65*inch, topMargin=0.58*inch, bottomMargin=0.7*inch, title="Settlement exception desk decision memo", author="Rahil Bhavan")
     doc.build(list(story), onFirstPage=footer, onLaterPages=footer)

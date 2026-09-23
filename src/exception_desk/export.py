@@ -78,6 +78,19 @@ def _policy_label(name: str) -> str:
     return name.replace("_", "-").replace("-", " ").title().replace("Fifo", "FIFO")
 
 
+# Value-weighted overdue is stored as atomic units x minutes; USDC has 6 decimals.
+_ATOMIC_PER_USDC = 1_000_000
+_METRIC_UNITS = {"value_weighted_overdue_minutes": "value_weighted_overdue (USDC-minutes)"}
+
+
+def _metric_value(metric: str, value: Any) -> str:
+    if metric == "value_weighted_overdue_minutes" and isinstance(value, (int, float)) and not isinstance(value, bool):
+        return "{:,.1f}".format(value / _ATOMIC_PER_USDC)
+    if isinstance(value, float):
+        return "{:,.1f}".format(value)
+    return _value(value)
+
+
 def _policy_table(policy_results: Any) -> str:
     policies = _policy_mapping(policy_results)
     metrics = sorted(
@@ -89,8 +102,9 @@ def _policy_table(policy_results: Any) -> str:
         return '<p class="missing">No policy metrics provided.</p>'
     rows = "".join(
         '<tr><th scope="row">{}</th>{}</tr>'.format(
-            escape(str(metric)),
-            "".join('<td>{}</td>'.format(_value(result.get(metric, _MISSING))) for result in policies.values()),
+            escape(_METRIC_UNITS.get(str(metric), str(metric))),
+            "".join('<td>{}</td>'.format(_metric_value(metric, result.get(metric, _MISSING)))
+                    for result in policies.values()),
         )
         for metric in metrics
     )
@@ -228,12 +242,12 @@ def render_operator_report(projection: Mapping[str, Any], exception: Mapping[str
 <body>
   <a class="skip-link" href="#case-workspace">Skip to case workspace</a>
   <header class="report-header">
-    <p class="simulation-label">SIMULATED DATA — NOT LIVE — NO ACTIONS EXECUTED</p>
+    <p class="simulation-label">SIMULATED DATA — NOT LIVE — NO ACTIONS EXECUTED. NOT AFFILIATED WITH OR ENDORSED BY COINBASE.</p>
     <h1>{title}</h1>
     <p class="subtitle">Operator decision support. Verify evidence and authorization before acting.</p>
   </header>
   <main id="case-workspace" tabindex="-1">{toolbar}{panels}{policy}</main>
-  <footer>SIMULATED • Interactive local report • Print-safe • No live actions</footer>
+  <footer>SIMULATED • Independent synthetic case study • Not affiliated with or endorsed by Coinbase • No live actions</footer>
 </body>
 </html>
 """.format(title=escape(title), stylesheet=escape(stylesheet_href, quote=True),

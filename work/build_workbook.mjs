@@ -33,10 +33,12 @@ summary.getRange("A5:B9").format.borders = {preset:"all", style:"thin", color:li
 summary.getRange("D5:F5").values = [["Metric","FIFO","Deadline-first"]];
 const keys = [
   ["Overdue cases","overdue_count"], ["Median delay (min)","median_resolution_delay_minutes"],
-  ["P95 delay (min)","p95_resolution_delay_minutes"], ["Value-weighted overdue minutes","value_weighted_overdue_minutes"],
+  ["P95 delay (min)","p95_resolution_delay_minutes"], ["Value-weighted overdue (USDC-minutes)","value_weighted_overdue_minutes"],
   ["Unfinished cases","unfinished_count"]
 ];
-summary.getRange("D6:F10").values = keys.map(([label,key]) => [label, policies.fifo[key], policies.deadline_first[key]]);
+// Value-weighted overdue is stored as atomic units x minutes; USDC has 6 decimals.
+const display = (key, value) => key === "value_weighted_overdue_minutes" ? value / 1e6 : value;
+summary.getRange("D6:F10").values = keys.map(([label,key]) => [label, display(key, policies.fifo[key]), display(key, policies.deadline_first[key])]);
 summary.getRange("D5:F5").format = {fill:navy, font:{name:"Arial", size:10, bold:true, color:"#FFFFFF"}, horizontalAlignment:"center"};
 summary.getRange("D5:F10").format.borders = {preset:"all", style:"thin", color:line};
 summary.getRange("E6:F10").format.numberFormat = "#,##0.0";
@@ -74,11 +76,12 @@ incidents.getRange("A:A").format.columnWidth = 34; incidents.getRange("B:B").for
 incidents.getRange("C:C").format.columnWidth = 38; incidents.getRange("D:E").format.columnWidth = 24; incidents.getRange("F:F").format.columnWidth = 40;
 incidents.freezePanes.freezeRows(2);
 
-policy.getRange("A2:J2").values = [["Policy","Overdue","Median delay","P95 delay","Weighted overdue","Unfinished","Unfinished value","Touches","Control failures","Workload hash"]];
+policy.getRange("A2:J2").values = [["Policy","Overdue","Median delay","P95 delay","Weighted overdue (USDC-minutes)","Unfinished","Unfinished value","Touches","Control failures","Workload hash"]];
 policy.getRange("A3:J6").values = ["fifo","deadline_first","value_first","hybrid"].map(name => {
-  const p=policies[name]; return [name,p.overdue_count,p.median_resolution_delay_minutes,p.p95_resolution_delay_minutes,p.value_weighted_overdue_minutes,p.unfinished_count,p.unfinished_value_atomic,p.touches,p.control_failures,p.workload_fingerprint];
+  const p=policies[name]; return [name,p.overdue_count,p.median_resolution_delay_minutes,p.p95_resolution_delay_minutes,display("value_weighted_overdue_minutes",p.value_weighted_overdue_minutes),p.unfinished_count,p.unfinished_value_atomic,p.touches,p.control_failures,p.workload_fingerprint];
 });
 policy.getRange("A2:J2").format = {fill:navy,font:{name:"Arial",size:10,bold:true,color:"#FFFFFF"},horizontalAlignment:"center",wrapText:true};
+policy.getRange("C3:E6").format.numberFormat = "#,##0.0";
 policy.getRange("A2:J6").format.borders = {preset:"all",style:"thin",color:line};
 policy.getRange("A:J").format.font = {name:"Arial",size:10};
 policy.getRange("A:A").format.columnWidth=18; policy.getRange("B:I").format.columnWidth=16; policy.getRange("J:J").format.columnWidth=38;
