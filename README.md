@@ -1,14 +1,37 @@
-# Coinbase Finance Operations — project design
+# x402 payment exception desk
 
-**Status:** release-candidate local synthetic build, started 2026-09-20 and validated 2026-09-22. It includes a fixture corpus, deterministic reducer, SQLite event store, four-policy experiment, 3,600-scenario sensitivity sweep, interactive operator report, and automated consistency checks. It does not include live payments, deployment, or external usability results.
+[![verify](https://github.com/RahilBhavan/coinbase-finance-operations/actions/workflows/verify.yml/badge.svg)](https://github.com/RahilBhavan/coinbase-finance-operations/actions/workflows/verify.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+**Live operator report: https://rahilbhavan.github.io/coinbase-finance-operations/**
 
-This project designs a simulated exception desk for a fictional institutional-data seller using fixed-price x402 `exact` payments on Base. It asks one operational question:
+A synthetic settlement-to-delivery exception desk for x402 payments on Base.
 
-> When settlement evidence and delivery evidence disagree, which cases should an operator handle first, and what evidence makes retry, recovery, refund, or closure safe?
+## The answer
 
-The selected design is an append-only event ledger plus a deterministic state reducer and a controlled comparison of FIFO, deadline-first, value-first, and hybrid exception queues. The current decision retains FIFO because the predeclared replacement gate did not pass. The model keeps `timeout` distinct from `failed`, payment distinct from delivery, and refund approval distinct from refund settlement. See [the decision brief](01-brief/decision.md), [design comparison](03-design/alternatives.md), [technical design](03-design/system-design.md), and [first milestone](06-execution/first-build.md).
+When payment evidence and delivery evidence disagree, which case should an operator handle first, and what evidence makes a retry, recovery, refund, or closure safe? The desk replays 65 synthetic events across 16 incidents through one deterministic reducer, then runs the 9 actionable cases through four queue policies on the same workload.
 
-## Architecture
+| Policy | Overdue cases | Median delay (min) | p95 delay (min) | Value-weighted overdue (USDC x min) | Control failures |
+|---|---|---|---|---|---|
+| FIFO (baseline) | 6 | 66.1 | 107.1 | 4,428.9 | 0 |
+| Deadline-first (proposed) | 6 | 55.1 | 107.1 | 1,582.2 | 0 |
+| Value-first | 4 | 47.1 | 137.1 | 1,371.9 | 0 |
+| Hybrid (SLA window, then value) | 4 | 77.1 | 127.1 | 982.1 | 0 |
+
+FIFO stays. The proposed replacement, deadline-first, had to cut overdue cases by at least 15% with zero control failures, a gate set before the run. It cut value-weighted overdue time by 64% but left the same 6 cases overdue, so it failed the gate. Value-first and hybrid cut overdue cases to 4, but they were added after the gate was set, have not run on a held-out workload, and have a worse p95 delay than FIFO.
+
+A 3,600-scenario sweep (100 seeds x 1 to 3 operators x 0.5x/1x/2x handling time x evidence delay x finality delay) shows that no policy wins every objective. Share of scenarios where each policy had the best result:
+
+| Objective | FIFO | Deadline-first | Value-first | Hybrid |
+|---|---|---|---|---|
+| Fewest overdue cases | 9.7% | 20.8% | **51.7%** | 17.8% |
+| Least value-weighted overdue time | 7.4% | 22.0% | 30.1% | **40.5%** |
+| Lowest p95 delay | **50.0%** | 11.1% | 17.6% | 21.3% |
+
+Ties split the credit. Control failures tie at 25% each because the seeded failures belong to the workload, not to the queue order. The queue rule should follow from the objective a team picks, not the other way around.
+
+The state model keeps four facts apart: a timeout means the outcome is unknown, not failed, so it never triggers a new charge; chain evidence shows payment, not delivery; a refund approval reserves balance but is not a settled refund; and one piece of payment evidence cannot pay for two orders.
+
+## How it's built
 
 ```mermaid
 flowchart LR
@@ -25,68 +48,55 @@ flowchart LR
     V --> Z[Versioned release package]
 ```
 
-The event log is the evidence boundary. Projections, reconciliation, operator guidance, and policy experiments are derived views that can be regenerated and checked against the independently authored oracle.
+The event log is the evidence boundary. An append-only SQLite store holds the events, and every projection, reconciliation row, operator view, and policy result derives from them. A separately written oracle states the expected outcome of all 16 incidents, and the reducer matches it 16 of 16. A 26-check consistency gate ties every generated file to one run ID and to the fixture, oracle, and workload hashes. The code uses only the Python standard library.
 
-## Key result
+## What's in it
 
-| Result | Meaning |
-|---|---|
-| FIFO and deadline-first each produced 6 overdue cases | The proposed replacement failed its predeclared 15% improvement gate. |
-| Value-first and hybrid each produced 4 overdue cases in the initial workload | Promising sensitivity signal, not a production recommendation. |
-| All four policies had zero modeled control failures | The comparison preserved the declared action constraints. |
-| 3,600 seeded scenarios completed | Results are distributions across assumptions, not a claim of universal superiority. |
+- [Operator report](https://rahilbhavan.github.io/coinbase-finance-operations/): each case's evidence timeline, payment, delivery, and refund state, the allowed and forbidden next actions, and the policy comparison. Source: [`artifacts/generated/operator-report.html`](artifacts/generated/operator-report.html).
+- [Decision memo (PDF)](artifacts/operations-memo.pdf): the policy decision, the evidence, and the strongest argument against FIFO.
+- [Reconciliation workbook (XLSX)](artifacts/reconciliation.xlsx): cases, formulas, and the four-policy results.
+- [Release package (ZIP)](outputs/coinbase-finance-operations-portfolio.zip), with its [SHA-256 checksum](outputs/coinbase-finance-operations-portfolio.zip.sha256): code, data, docs, and artifacts in one deterministic archive.
+- [Demo video](artifacts/demo.mp4), [state model](artifacts/state-model.md), [operator runbook](artifacts/operator-runbook.md), and [validation report](artifacts/validation-report.md).
 
-## Portfolio position and boundaries
+## Run it
 
-
-The first build is local and entirely synthetic. It does not use a wallet, sign requests, call a facilitator, broadcast transactions, create accounts, install dependencies, or move money. Live Base Sepolia interoperability is an optional later gate, not part of this plan.
-
-## Build and verify the complete release
-
-Python 3.9+ is sufficient; there are no third-party dependencies.
+Python 3.9 or later, no third-party packages.
 
 ```sh
+git clone https://github.com/RahilBhavan/coinbase-finance-operations.git
+cd coinbase-finance-operations
 python3 scripts/release.py
 ```
 
-That single command runs the complete test suite, regenerates the deterministic outputs, runs the cross-artifact gate, verifies PDF/workbook/video hashes, and rebuilds the ZIP with a SHA-256 checksum. GitHub Actions runs the same command on pushes and pull requests.
+`release.py` runs the tests, regenerates `artifacts/generated/`, runs the consistency gate, checks the memo, workbook, and video against their recorded hashes, and rebuilds the ZIP and checksum. It prints `"status": "PASS"` on success. CI runs the same command on Python 3.9 and 3.11.
 
-For development, the individual commands remain available:
+The individual steps:
 
 ```sh
-PYTHONPATH=src python3 -m unittest discover -s tests -v
-PYTHONPATH=src python3 -m exception_desk.cli --root .
+PYTHONPATH=src python3 -m unittest discover -s tests -v   # tests
+PYTHONPATH=src python3 -m exception_desk.cli --root .     # regenerate outputs
+open artifacts/generated/operator-report.html             # view the report locally
 ```
 
-Generated files are written to `artifacts/generated/`. The initial scenario run produced the same overdue-case count under FIFO and deadline-first, so it **does not pass the 15% improvement gate** and does not support adopting the proposed policy yet. The result is useful precisely because the baseline is allowed to win.
+The release checks the memo, workbook, and video but does not rebuild them. Rebuilding them needs extra tools: `work/build_memo.py` needs `reportlab`, `work/build_demo.py` needs `Pillow` and `imageio-ffmpeg`, and `work/build_workbook.mjs` needs `@oai/artifact-tool`, a private Node runtime that is not publicly available. The committed files are the reference copies.
 
-The reviewer package is in `artifacts/`: decision memo, canonical state model, fixture corpus and oracle, reconciliation workbook, four-policy results, 3,600-scenario sensitivity summary, interactive operator desk, consistency audit, runbook, validation report, narrated demo, and reviewer protocol. See the [release-readiness record](05-validation/release-readiness.md) for the latest automated evidence and remaining human gates.
+## Scope and limits
 
-## Package map
+- All data is synthetic: incidents, amounts, identities, handling times, arrival rates, and every result.
+- No live payments. The desk uses no wallet, signs nothing, calls no facilitator, and sends no transactions. Payment shapes follow the public x402 v2 specification and Base finality documentation.
+- Handling times are model inputs, not measurements, so the policy results show tradeoffs, not a production recommendation.
+- No payments practitioner has reviewed the workflow yet. The [operator task protocol](artifacts/operator-task-protocol.md) describes that review.
+- This is an independent project. It is not affiliated with or endorsed by Coinbase and does not describe any Coinbase system or process.
 
-| Folder | Purpose |
-|---|---|
-| `01-brief` | decision, audience, scope, success criteria |
-| `02-research` | dated source register, data feasibility, and archived prior plans with local paths removed |
-| `03-design` | alternatives, state/data model, architecture and controls |
-| `04-deliverables` | artifact contract, demo, reviewer packet |
-| `05-validation` | verification matrix and adversarial review |
-| `06-execution` | realistic first build and decision log |
-| `artifacts` | built reviewer outputs plus reproducible generated JSON, CSV, HTML, workbook, PDF, video, and package artifacts |
-| `scripts` | one-command release, rich-artifact hashing, and deterministic packaging |
+## Project documents
 
-## Trust boundaries
-
-- All incidents, amounts, identities, and performance results are synthetic.
-- Chain evidence can establish a modeled payment observation; it cannot prove delivery.
-- A timeout is unknown, not failed, so it never authorizes an automatic recharge.
-- The project is not affiliated with or endorsed by Coinbase.
-- External practitioner review and live protocol interoperability remain future gates.
+- [Decision brief](01-brief/decision.md) and adoption gate
+- [Source register](02-research/source-register.md) and [data feasibility](02-research/data-feasibility.md)
+- [Design alternatives](03-design/alternatives.md) and [system design](03-design/system-design.md)
+- [Artifact plan](04-deliverables/artifact-plan.md) and [reviewer packet](artifacts/reviewer-packet.md)
+- [Release readiness](05-validation/release-readiness.md), [adversarial review](05-validation/adversarial-review.md), and [verification plan](05-validation/verification-plan.md)
+- [Complete project guide](outputs/complete-project-guide.md)
 
 ## License
 
-The source and documentation are available under the [MIT License](LICENSE).
-
-## Definition of success
-
-A practitioner can inspect the evidence for one case, reproduce its derived state, identify the only permissible next actions, and challenge the queue-policy recommendation. A strong result may recommend the baseline. All data and results must be labeled reported, calculated, assumed, simulated, or observed.
+[MIT](LICENSE).
