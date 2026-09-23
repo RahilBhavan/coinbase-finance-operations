@@ -67,7 +67,7 @@ The reviewer package is in `artifacts/`: decision memo, canonical state model, f
 | Folder | Purpose |
 |---|---|
 | `01-brief` | decision, audience, scope, success criteria |
-| `02-research` | dated source register, data feasibility, untouched prior plans |
+| `02-research` | dated source register, data feasibility, and archived prior plans with local paths removed |
 | `03-design` | alternatives, state/data model, architecture and controls |
 | `04-deliverables` | artifact contract, demo, reviewer packet |
 | `05-validation` | verification matrix and adversarial review |
