@@ -235,7 +235,16 @@ def render_operator_report(projection: Mapping[str, Any], exception: Mapping[str
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{title}</title>
+  <title>x402 payment exception desk: operator report</title>
+  <meta name="description" content="Synthetic x402 payment exceptions on Base, replayed through one reducer and compared across four queue policies.">
+  <link rel="canonical" href="https://rahilbhavan.github.io/x402-exception-desk/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="x402 payment exception desk: operator report">
+  <meta property="og:description" content="Synthetic x402 payment exceptions on Base, replayed through one reducer and compared across four queue policies.">
+  <meta property="og:url" content="https://rahilbhavan.github.io/x402-exception-desk/">
+  <meta property="og:image" content="https://rahilbhavan.github.io/x402-exception-desk/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='28' font-weight='700' text-anchor='middle' fill='%2338bdf8'%3EXD%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="{stylesheet}">
   <script src="{script}" defer></script>
 </head>
