@@ -16,4 +16,5 @@ Cut live Base Sepolia first, then UI animation/polish, AI-generated notes, large
 
 ## Pre-mortem
 
+If the project fails, likely causes are an interface built before states are correct, assumed metrics presented as operational truth, an unpinned changing protocol, or an opaque recommendation that no one can defend. Stop the build when the 16 fixtures cannot be hand-reconciled, material source semantics remain unresolved, or the memo depends on UI output that cannot be reproduced independently.
 

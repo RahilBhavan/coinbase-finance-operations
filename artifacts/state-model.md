@@ -15,7 +15,7 @@
 
 - Settlement timeout opens reconciliation on the original attempt. It does not authorize another charge.
 - Late matching payment evidence updates the original attempt and unlocks recovery of the persisted resource.
-- Conclusive failure makes a reviewed retry eligible; it never triggers an automatic retry.
+- Conclusive failure makes a reviewed retry permissible; it never triggers an automatic retry.
 - One `(network, transaction reference, log index)` claim belongs to one order. Reuse opens a conflict.
 - A paid order can have one entitlement. Duplicate requests return the persisted result.
 - Pre-finality evidence invalidation reopens the payment conclusion and any dependent closure.

@@ -12,7 +12,7 @@ Reviewed 2026-09-20. Technical pages are mutable; freeze a commit/release before
 
 ## Access limitations
 
-The current Coinbase careers navigation was previously blocked by browser administrator-policy verification. This plan does not bypass or proxy that restriction. Therefore role availability and eligibility remain provisional. Some earlier Base payment/refund guide URLs have moved or were not directly accessible in the research tool; no current claim depends solely on those inaccessible pages.
+Some earlier Base payment/refund guide URLs have moved or were not directly accessible in the research tool; no current claim depends solely on those inaccessible pages.
 
 ## Assumption register
 

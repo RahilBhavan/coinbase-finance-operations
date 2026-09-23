@@ -87,7 +87,7 @@ The consistency checks compare run IDs, fixture hashes, oracle hashes, workload 
 
 ## What remains unproven
 
-This is a portfolio simulation. It does not prove that the workload assumptions represent a payment operation. It does not test a live x402 implementation. It does not establish production security, privacy, performance, or authorization controls.
+This is a synthetic simulation. It does not prove that the workload assumptions represent a payment operation. It does not test a live x402 implementation. It does not establish production security, privacy, performance, or authorization controls.
 
 The next meaningful test requires people. The repository includes a fixed operator task protocol for payments or finance-operations practitioners. Reviewers would identify unsafe decisions, missing evidence, unclear terms, and slow navigation. That review has not happened, so the project does not claim it.
 

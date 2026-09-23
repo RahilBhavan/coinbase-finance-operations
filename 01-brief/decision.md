@@ -11,7 +11,7 @@ This is not a generic dashboard. The unit of work is an exception whose payment 
 | Situation | Meaning | Safe action |
 |---|---|---|
 | Settle request timed out | outcome unknown | reconcile the original attempt; suppress a new charge |
-| Conclusive settlement failure | no captured payment under the modeled evidence rule | reviewed retry may be eligible |
+| Conclusive settlement failure | no captured payment under the modeled evidence rule | reviewed retry may be allowed |
 | Payment observed, delivery unacknowledged | paid, service obligation unresolved | recover the persisted report; do not charge again |
 | Duplicate request/evidence | replay or cross-order conflict | return persisted outcome or escalate; create no new entitlement |
 | Refund approved but unsettled | reservation consumes refundable balance | keep reservation until conclusive outcome |
@@ -23,5 +23,5 @@ Proposed gate (a design choice, not an observed benchmark): on a held-out regula
 
 ## Audience and claim boundary
 
-Primary audience: finance-operations or payments-operations reviewer. Secondary audience: Product/Engineering partner. The project may demonstrate analytical judgment, controls, reconciliation, and handoff design. It must not claim Coinbase process knowledge, production readiness, customer identity, real savings, legal sufficiency, or hiring eligibility.
+Primary audience: finance-operations or payments-operations reviewer. Secondary audience: Product/Engineering partner. The project covers analytical judgment, controls, reconciliation, and handoff design. It does not claim Coinbase process knowledge, production readiness, customer identity, real savings, or legal sufficiency.
 

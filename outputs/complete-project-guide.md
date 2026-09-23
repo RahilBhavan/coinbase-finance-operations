@@ -343,7 +343,6 @@ Tests prove the implemented behavior for the declared synthetic corpus. They do 
 | `operator-task-protocol.md` | Repeatable external practitioner review that has not yet run |
 | `reviewer-packet.md` | Suggested review order and questions |
 | `source-register.csv` | Source provenance and limitations |
-| `publication-plan.md` | Website article, X Article/thread, assets, SEO, and launch plan |
 | `daily-build-log.md` | Evidence-backed record of major changes |
 | Portfolio ZIP | Portable package of the project |
 
@@ -357,7 +356,7 @@ Tests prove the implemented behavior for the declared synthetic corpus. They do 
 6. **Expand the design space.** Value-first, hybrid, multi-operator capacity, and 3,600 sensitivity scenarios exposed objective tradeoffs.
 7. **Improve operator review.** The static report became an accessible, navigable, safe local desk.
 8. **Harden artifact integrity.** Shared hashes, run identity, and a consistency gate made output drift detectable.
-9. **Package the story.** Memo, workbook, demo, runbook, validation, daily log, and publication plan explain the same evidence to different audiences.
+9. **Package the story.** Memo, workbook, demo, runbook, validation, and daily log explain the same evidence to different audiences.
 10. **Define honest external validation.** A three-practitioner task protocol was written but has not been claimed as completed.
 
 ```mermaid

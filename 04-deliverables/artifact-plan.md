@@ -11,7 +11,7 @@ The package was built locally and revalidated on 2026-09-22. “Built” means t
 | FO-05 | Built | `artifacts/policy-results.csv` | identical workloads/controls; unresolved work retained; run metadata included |
 | FO-06 | Built | `artifacts/operator-runbook.md` | owner, evidence, safe action, forbidden action, escalation, closure test for every exception type |
 | FO-07 | Built | `artifacts/validation-report.md` | command, expected/actual, evidence path, date, and visible limitations |
-| FO-08 | Protocol ready; external review pending | `artifacts/operator-task-protocol.md` | same task/rubric for eligible reviewers; critical errors, time, confidence |
+| FO-08 | Protocol ready; external review pending | `artifacts/operator-task-protocol.md` | same task/rubric for qualified reviewers; critical errors, time, confidence |
 | FO-09 | Built | `artifacts/demo.mp4` | synthetic label; unknown-vs-failed, delivery recovery, refund reservation, policy tradeoff |
 | FO-10 | Built | `artifacts/source-register.csv` | source version/date, claim supported, evidence label, assumption links, access limitations |
 

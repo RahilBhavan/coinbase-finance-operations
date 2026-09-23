@@ -4,7 +4,7 @@ Status: ready to run; **no external reviewers have completed it**. This protocol
 
 ## Participants and setup
 
-Recruit at least three practitioners who have handled payments, treasury, reconciliation, risk, or customer-funds exceptions. Record role family and relevant experience band, but no employer-confidential information. Give each reviewer the same generated build, runbook, and three tasks below. Do not coach after timing begins.
+Find at least three practitioners who have handled payments, treasury, reconciliation, risk, or customer-funds exceptions. Record role family and relevant experience band, but no employer-confidential information. Give each reviewer the same generated build, runbook, and three tasks below. Do not coach after timing begins.
 
 The facilitator records screen or notes with consent, starts the timer when the task is revealed, and stops it when the reviewer states a decision and cites evidence. A reviewer may answer “insufficient evidence”; that is a valid decision.
 
@@ -35,7 +35,7 @@ Score each task out of 4: correct disposition (2), correct evidence cited (1), a
 
 The review passes only when all of these are true:
 
-- at least three eligible practitioners complete all three tasks without coaching;
+- at least three qualified practitioners complete all three tasks without coaching;
 - zero C1–C4 critical errors across all sessions;
 - every reviewer scores at least 10/12;
 - median completion time is at most 180 seconds per task;

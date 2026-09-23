@@ -4,6 +4,7 @@
 
 `fixtures → append-only events → deterministic reducer → payment/fulfillment projections → exception rules → policy runner → CSV/XLSX/UI/memo`
 
+One local process and SQLite are sufficient. A small TypeScript CLI is the candidate implementation because it can share types with a later interface; Python plus SQLite is a valid fallback. No framework is needed.
 
 The reducer is pure: ordered events plus a policy version produce projections. Ingestion uniqueness is enforced by `event_id`; payment evidence has a unique `(network, transaction_ref, log_index)` claim. A stable `order_idempotency_key` binds one business purchase. Unknown outcomes remain open.
 

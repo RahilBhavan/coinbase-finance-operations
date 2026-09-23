@@ -17,7 +17,7 @@ The gate verifies authoritative input hashes, shared run identity, case/event/or
 
 ## Remaining gates
 
-1. Run the existing protocol with up to three eligible payments or operations practitioners. External review is currently unperformed.
+1. Run the existing protocol with up to three qualified payments or operations practitioners. External review is currently unperformed.
 2. If the project is ever presented as an integration rather than a simulation, add sandbox interoperability against a pinned x402 implementation and document the accepted finality policy.
 3. Validate accessibility and operator comprehension with people, not only markup and deterministic tests.
 4. Before any production use, replace synthetic assumptions with representative workload data and complete security, privacy, performance, authorization, and failure-recovery reviews.

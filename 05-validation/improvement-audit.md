@@ -27,7 +27,7 @@ Both commands must pass. A passing unit test alone does not certify the current 
 
 ## Practitioner-review gate
 
-Use [`../artifacts/operator-task-protocol.md`](../artifacts/operator-task-protocol.md) without changing tasks between participants. External review remains unperformed until at least three eligible practitioners complete all tasks and the exact pass criteria in that protocol are satisfied.
+Use [`../artifacts/operator-task-protocol.md`](../artifacts/operator-task-protocol.md) without changing tasks between participants. External review remains unperformed until at least three qualified practitioners complete all tasks and the exact pass criteria in that protocol are satisfied.
 
 ## Remaining gaps
 

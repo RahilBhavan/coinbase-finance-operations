@@ -71,6 +71,7 @@ story = [
     Paragraph("Next test", h1),
     Paragraph("Keep FIFO as the working baseline. Before reconsidering, run a larger frozen scenario grid with observed or practitioner-reviewed handling-time ranges and a held-out workload. Evaluate a narrow hybrid that applies deadline-first only when a case is actionable and within a specified SLA window. Preserve the same control rules and report unfinished count and value.", body),
     Paragraph("Evidence and claim boundary", h1),
+    Paragraph("The payment shapes follow the public x402 v2 specification and Base finality documentation reviewed on 20 September 2026. Incident frequencies, staffing, handling times, delivery acknowledgments, and all results are simulated. No live wallet, facilitator, transaction, Coinbase system, customer, or operational savings claim is involved.", body),
     Spacer(1,8),
     Paragraph("Source register: x402 v2 specification; Base transaction finality; Coinbase CDP SDK x402 examples; synthetic corpus and pre-authored oracle in the project package.", small),
 ]

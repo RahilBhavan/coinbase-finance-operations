@@ -26,8 +26,12 @@ PACKAGE_ROOTS = (
     "01-brief", "02-research", "03-design", "04-deliverables", "05-validation",
     "06-execution", "artifacts", "data", "scripts", "src", "tests", "web",
 )
-PACKAGE_FILES = ("README.md", "MISSION.md", "RESOURCES.md", "LICENSE", "pyproject.toml")
-PRIVATE_PATHS = ("02-research/prior-plans/", "06-execution/twitter-rollout.md")
+PACKAGE_FILES = ("README.md", "LICENSE", "pyproject.toml")
+# Local-only notes inside packaged folders; mirrors the .gitignore entries.
+PRIVATE_PATHS = (
+    "02-research/prior-plans/", "02-research/publishing-platform-research.md",
+    "06-execution/twitter-rollout.md",
+)
 FIXED_ZIP_TIME = (2026, 9, 22, 0, 0, 0)
 TEXT_SUFFIXES = {".css", ".csv", ".html", ".js", ".json", ".jsonl", ".md", ".py", ".toml", ".txt", ".yml"}
 
