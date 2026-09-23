@@ -27,11 +27,6 @@ PACKAGE_ROOTS = (
     "06-execution", "artifacts", "data", "scripts", "src", "tests", "web",
 )
 PACKAGE_FILES = ("README.md", "LICENSE", "pyproject.toml")
-# Local-only notes inside packaged folders; mirrors the .gitignore entries.
-PRIVATE_PATHS = (
-    "02-research/prior-plans/", "02-research/publishing-platform-research.md",
-    "06-execution/twitter-rollout.md",
-)
 FIXED_ZIP_TIME = (2026, 9, 22, 0, 0, 0)
 TEXT_SUFFIXES = {".css", ".csv", ".html", ".js", ".json", ".jsonl", ".md", ".py", ".toml", ".txt", ".yml"}
 
@@ -70,7 +65,21 @@ def verify_manifest(manifest: dict[str, object]) -> None:
             raise ValueError(f"artifact integrity mismatch: {entry['path']}")
 
 
+def _git_ignored() -> set[str]:
+    # Local-only files are ignored via .git/info/exclude; keep them out of the package.
+    try:
+        listed = subprocess.run(
+            ["git", "ls-files", "--others", "--ignored", "--exclude-standard", "-z"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return set()
+    return set(filter(None, listed.split("\0")))
+
+
 def _package_paths() -> list[Path]:
+    ignored = _git_ignored()
+
     def releasable(path: Path) -> bool:
         return (
             path.is_file()
@@ -78,7 +87,7 @@ def _package_paths() -> list[Path]:
             and path.suffix not in {".pyc", ".pyo"}
             and path.name != ".DS_Store"
             and not path.name.endswith(".inspect.ndjson")
-            and not path.relative_to(ROOT).as_posix().startswith(PRIVATE_PATHS)
+            and path.relative_to(ROOT).as_posix() not in ignored
         )
 
     paths = [ROOT / name for name in PACKAGE_FILES if releasable(ROOT / name)]
