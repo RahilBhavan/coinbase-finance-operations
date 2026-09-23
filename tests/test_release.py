@@ -29,6 +29,7 @@ class ReleaseManifestTests(unittest.TestCase):
     def test_package_excludes_python_caches(self):
         packaged = [str(path) for path in _package_paths()]
         self.assertFalse(any("__pycache__" in path or path.endswith(".pyc") for path in packaged))
+        self.assertFalse(any(path.endswith(".inspect.ndjson") for path in packaged))
 
 
 if __name__ == "__main__":

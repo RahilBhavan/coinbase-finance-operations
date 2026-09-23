@@ -71,6 +71,7 @@ def _package_paths() -> list[Path]:
             and "__pycache__" not in path.parts
             and path.suffix not in {".pyc", ".pyo"}
             and path.name != ".DS_Store"
+            and not path.name.endswith(".inspect.ndjson")
         )
 
     paths = [ROOT / name for name in PACKAGE_FILES if releasable(ROOT / name)]
