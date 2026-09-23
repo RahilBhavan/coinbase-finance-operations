@@ -87,10 +87,10 @@ def build(root: Path) -> dict[str, Any]:
         "value_weighted_overdue_minutes", "unfinished_count", "unfinished_value_atomic", "touches",
         "control_failures", "workload_fingerprint"]
     with (output / "policy-results.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=metrics + common); writer.writeheader()
+        writer = csv.DictWriter(handle, fieldnames=metrics + common, lineterminator="\n"); writer.writeheader()
         for result in results.values(): writer.writerow({**{f: result[f] for f in metrics}, **meta})
     with (output / "reconciliation.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["fixture_id", "captured_atomic", "reserved_refund_atomic", "completed_refund_atomic", *common]); writer.writeheader()
+        writer = csv.DictWriter(handle, fieldnames=["fixture_id", "captured_atomic", "reserved_refund_atomic", "completed_refund_atomic", *common], lineterminator="\n"); writer.writeheader()
         for case in oracle["cases"]: writer.writerow({"fixture_id": case["fixture_id"], **case["expected_financials"], **meta})
 
     expected = {case["fixture_id"]: case for case in oracle["cases"]}
@@ -111,7 +111,7 @@ def build(root: Path) -> dict[str, Any]:
         "oracle_cases_passed": sum(row["status"] == "PASS" for row in conformance),
         "scenario_count": scenario["scenario_count"],
         "inputs": {"fixtures": "data/incidents-v1.jsonl", "oracle": "data/incidents-v1.oracle.json"},
-        "output_directory": str(output)}
+        "output_directory": "artifacts/generated"}
     (output / "build-summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     audit = assert_artifacts_consistent(root)
     (output / "consistency-audit.json").write_text(json.dumps(audit, indent=2) + "\n", encoding="utf-8")

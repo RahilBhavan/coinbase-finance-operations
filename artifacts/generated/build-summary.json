@@ -16,5 +16,5 @@
     "fixtures": "data/incidents-v1.jsonl",
     "oracle": "data/incidents-v1.oracle.json"
   },
-  "output_directory": "<local-path>"
+  "output_directory": "artifacts/generated"
 }

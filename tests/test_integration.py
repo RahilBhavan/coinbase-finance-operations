@@ -38,6 +38,7 @@ class IntegrationTests(unittest.TestCase):
             output = root / "artifacts" / "generated"
             self.assertEqual(16, summary["fixture_count"])
             self.assertEqual(65, summary["event_count"])
+            self.assertEqual("artifacts/generated", summary["output_directory"])
             self.assertIn("SIMULATED DATA", (output / "operator-report.html").read_text())
             results = json.loads((output / "policy-results.json").read_text())
             policies = results["policies"]
