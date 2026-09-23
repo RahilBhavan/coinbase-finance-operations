@@ -1,0 +1,12 @@
+[project]
+name = "settlement-exception-desk"
+version = "0.1.0"
+description = "Synthetic x402 settlement-to-delivery exception desk"
+requires-python = ">=3.9"
+
+[project.scripts]
+exception-desk = "exception_desk.cli:main"
+
+[tool.unittest]
+start-directory = "tests"
+

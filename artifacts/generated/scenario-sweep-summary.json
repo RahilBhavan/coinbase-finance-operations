@@ -1,0 +1,190 @@
+{
+  "_meta": {
+    "claim_boundary": "Chain evidence does not prove delivery.",
+    "data_classification": "synthetic",
+    "fixture_sha256": "c9ca5821686c1490324493d54f778efd50c38a10eb454e47eac677757a795539",
+    "oracle_sha256": "33a4d0526243e0dc7f89f91f3e06aa5bd109a741510b857a20feae7f185e465a",
+    "policy_workload_hash": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a",
+    "run_id": "run-a6cf865a0efd58de"
+  },
+  "handling_time_assumptions": {
+    "delivery_recovery": {
+      "base": 8.0,
+      "fast": 4.0,
+      "slow": 18.0
+    },
+    "evidence_mismatch": {
+      "base": 12.0,
+      "fast": 6.0,
+      "slow": 25.0
+    },
+    "refund_investigation": {
+      "base": 30.0,
+      "fast": 15.0,
+      "slow": 60.0
+    },
+    "timeout_reconciliation": {
+      "base": 20.0,
+      "fast": 10.0,
+      "slow": 45.0
+    }
+  },
+  "predeclared_metrics": [
+    "overdue_count",
+    "value_weighted_overdue_minutes",
+    "p95_resolution_delay_minutes",
+    "unfinished_count",
+    "total_control_failures"
+  ],
+  "scenario_count": 3600,
+  "summary": {
+    "deadline_first": {
+      "overdue_count": {
+        "maximum": 40.0,
+        "minimum": 0.0,
+        "p50": 11.0,
+        "p95": 29.0,
+        "win_rate": 0.2057638888888891
+      },
+      "p95_resolution_delay_minutes": {
+        "maximum": 453.59999999999997,
+        "minimum": 12.0,
+        "p50": 112.20000000000005,
+        "p95": 362.40000000000003,
+        "win_rate": 0.10011574074074073
+      },
+      "total_control_failures": {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "p50": 1.0,
+        "p95": 3.0,
+        "win_rate": 0.25
+      },
+      "unfinished_count": {
+        "maximum": 31.0,
+        "minimum": 0.0,
+        "p50": 0.0,
+        "p95": 27.0,
+        "win_rate": 0.24844907407407438
+      },
+      "value_weighted_overdue_minutes": {
+        "maximum": 1032134200000.0,
+        "minimum": 0.0,
+        "p50": 48031099999.999985,
+        "p95": 612715600000.0,
+        "win_rate": 0.22104166666666683
+      }
+    },
+    "fifo": {
+      "overdue_count": {
+        "maximum": 37.0,
+        "minimum": 0.0,
+        "p50": 11.0,
+        "p95": 26.0,
+        "win_rate": 0.09983796296296289
+      },
+      "p95_resolution_delay_minutes": {
+        "maximum": 412.2,
+        "minimum": 12.0,
+        "p50": 87.19999999999999,
+        "p95": 350.40000000000003,
+        "win_rate": 0.44270833333333315
+      },
+      "total_control_failures": {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "p50": 1.0,
+        "p95": 3.0,
+        "win_rate": 0.25
+      },
+      "unfinished_count": {
+        "maximum": 31.0,
+        "minimum": 0.0,
+        "p50": 0.0,
+        "p95": 28.0,
+        "win_rate": 0.24872685185185217
+      },
+      "value_weighted_overdue_minutes": {
+        "maximum": 833805400000.0,
+        "minimum": 0.0,
+        "p50": 93547000000.0,
+        "p95": 600753800000.0,
+        "win_rate": 0.07701388888888894
+      }
+    },
+    "hybrid": {
+      "overdue_count": {
+        "maximum": 36.0,
+        "minimum": 0.0,
+        "p50": 10.0,
+        "p95": 25.0,
+        "win_rate": 0.17858796296296298
+      },
+      "p95_resolution_delay_minutes": {
+        "maximum": 465.0,
+        "minimum": 12.0,
+        "p50": 113.40000000000003,
+        "p95": 294.4,
+        "win_rate": 0.2355324074074075
+      },
+      "total_control_failures": {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "p50": 1.0,
+        "p95": 3.0,
+        "win_rate": 0.25
+      },
+      "unfinished_count": {
+        "maximum": 32.0,
+        "minimum": 0.0,
+        "p50": 0.0,
+        "p95": 28.0,
+        "win_rate": 0.25219907407407455
+      },
+      "value_weighted_overdue_minutes": {
+        "maximum": 694005800000.0,
+        "minimum": 0.0,
+        "p50": 40116800000.000015,
+        "p95": 372112400000.00006,
+        "win_rate": 0.3991435185185182
+      }
+    },
+    "value_first": {
+      "overdue_count": {
+        "maximum": 30.0,
+        "minimum": 0.0,
+        "p50": 9.0,
+        "p95": 20.0,
+        "win_rate": 0.5158101851851846
+      },
+      "p95_resolution_delay_minutes": {
+        "maximum": 465.0,
+        "minimum": 12.0,
+        "p50": 128.40000000000003,
+        "p95": 335.0,
+        "win_rate": 0.22164351851851866
+      },
+      "total_control_failures": {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "p50": 1.0,
+        "p95": 3.0,
+        "win_rate": 0.25
+      },
+      "unfinished_count": {
+        "maximum": 32.0,
+        "minimum": 0.0,
+        "p50": 0.0,
+        "p95": 27.0,
+        "win_rate": 0.2506250000000003
+      },
+      "value_weighted_overdue_minutes": {
+        "maximum": 672700400000.0,
+        "minimum": 0.0,
+        "p50": 59197800000.000015,
+        "p95": 371676999999.99994,
+        "win_rate": 0.3028009259259261
+      }
+    }
+  }
+}

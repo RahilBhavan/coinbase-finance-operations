@@ -1,0 +1,7 @@
+source_id,title,url_or_path,reviewed_date,evidence_label,claim_supported,limitation
+S1,x402 v2 specification,https://github.com/coinbase/x402/blob/main/specs/x402-specification-v2.md,2026-09-20,reported,"verify and settle are distinct; exact EVM fields and atomic amounts","mutable main branch; freeze commit before interoperability"
+S2,Base transaction finality,https://docs.base.org/specifications/transactions/transaction-finality,2026-09-20,reported,"Base exposes increasing finality stages; ordinary L2 transactions are not seven-day withdrawals","timings are documentation estimates, not SLA"
+S3,Coinbase CDP SDK x402 examples,https://github.com/coinbase/cdp-sdk/tree/main/examples/typescript/x402,2026-09-20,reported,"first-party testnet client and resource-server examples exist","not used by local synthetic build"
+S4,Synthetic incident corpus,data/incidents-v1.jsonl,2026-09-20,simulated,"65 events across 16 cases","frequencies and handling times are not observed"
+S5,Expected-state oracle,data/incidents-v1.oracle.json,2026-09-20,assumed,"pre-authored permissible actions and terminal states","project policy, not industry or Coinbase policy"
+

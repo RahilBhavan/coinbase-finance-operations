@@ -1,0 +1,20 @@
+{
+  "run_id": "run-a6cf865a0efd58de",
+  "fixture_sha256": "c9ca5821686c1490324493d54f778efd50c38a10eb454e47eac677757a795539",
+  "oracle_sha256": "33a4d0526243e0dc7f89f91f3e06aa5bd109a741510b857a20feae7f185e465a",
+  "policy_workload_hash": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a",
+  "data_classification": "synthetic",
+  "claim_boundary": "Chain evidence does not prove delivery.",
+  "status": "simulated_build_complete",
+  "generated_at": "2026-09-23T02:25:30.718906+00:00",
+  "fixture_count": 16,
+  "event_count": 65,
+  "policy_workload_count": 9,
+  "oracle_cases_passed": 16,
+  "scenario_count": 3600,
+  "inputs": {
+    "fixtures": "data/incidents-v1.jsonl",
+    "oracle": "data/incidents-v1.oracle.json"
+  },
+  "output_directory": "<local-path>"
+}

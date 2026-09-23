@@ -1,0 +1,3 @@
+policy,overdue_count,median_resolution_delay_minutes,p95_resolution_delay_minutes,value_weighted_overdue_minutes,unfinished_count,unfinished_value_atomic,touches,control_failures,workload_fingerprint
+fifo,6,66.05000000074506,107.05000000074506,4428900000.11772,0,0,9,0,6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a
+deadline_first,6,55.05000000074506,107.05000000074506,1582200000.1072884,0,0,9,0,6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a

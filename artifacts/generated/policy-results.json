@@ -1,0 +1,444 @@
+{
+  "_meta": {
+    "claim_boundary": "Chain evidence does not prove delivery.",
+    "data_classification": "synthetic",
+    "fixture_sha256": "c9ca5821686c1490324493d54f778efd50c38a10eb454e47eac677757a795539",
+    "oracle_sha256": "33a4d0526243e0dc7f89f91f3e06aa5bd109a741510b857a20feae7f185e465a",
+    "policy_workload_hash": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a",
+    "run_id": "run-a6cf865a0efd58de"
+  },
+  "policies": {
+    "deadline_first": {
+      "control_failures": 0,
+      "median_resolution_delay_minutes": 55.05000000074506,
+      "operator_count": 1,
+      "outcomes": [
+        {
+          "amount_atomic": 12000000,
+          "case_id": "ex-01-authorization-reject",
+          "completed_at": 29460434.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 14.050000000745058,
+          "started_at": 29460420.05
+        },
+        {
+          "amount_atomic": 30000000,
+          "case_id": "ex-03-timeout-late-success",
+          "completed_at": 29460454.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 24.050000000745058,
+          "started_at": 29460434.05
+        },
+        {
+          "amount_atomic": 45000000,
+          "case_id": "ex-05-paid-lost-delivery",
+          "completed_at": 29460472.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 2.050000000745058,
+          "resolution_delay_minutes": 32.05000000074506,
+          "started_at": 29460454.05
+        },
+        {
+          "amount_atomic": 8000000,
+          "case_id": "ex-04-conclusive-failure",
+          "completed_at": 29460490.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 10.050000000745058,
+          "resolution_delay_minutes": 55.05000000074506,
+          "started_at": 29460472.05
+        },
+        {
+          "amount_atomic": 33000000,
+          "case_id": "ex-09-evidence-mismatch",
+          "completed_at": 29460504.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 9.050000000745058,
+          "resolution_delay_minutes": 44.05000000074506,
+          "started_at": 29460490.05
+        },
+        {
+          "amount_atomic": 16000000,
+          "case_id": "ex-02-preparation-failure",
+          "completed_at": 29460520.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 10.050000000745058,
+          "resolution_delay_minutes": 95.05000000074506,
+          "started_at": 29460504.05
+        },
+        {
+          "amount_atomic": 9000000,
+          "case_id": "ex-06-repeated-across-restart",
+          "completed_at": 29460538.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 93.05000000074506,
+          "started_at": 29460520.05
+        },
+        {
+          "amount_atomic": 22000000,
+          "case_id": "ex-08-second-authorization",
+          "completed_at": 29460554.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 14.050000000745058,
+          "resolution_delay_minutes": 99.05000000074506,
+          "started_at": 29460538.05
+        },
+        {
+          "amount_atomic": 20000000,
+          "case_id": "ex-10-cross-order-evidence-reuse",
+          "completed_at": 29460572.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 32.05000000074506,
+          "resolution_delay_minutes": 107.05000000074506,
+          "started_at": 29460554.05
+        }
+      ],
+      "overdue_count": 6,
+      "p95_resolution_delay_minutes": 107.05000000074506,
+      "policy": "deadline_first",
+      "sla_window_minutes": 30.0,
+      "total_control_failures": 0,
+      "touches": 9,
+      "unfinished_control_failures": 0,
+      "unfinished_count": 0,
+      "unfinished_value_atomic": 0,
+      "value_weighted_overdue_minutes": 1582200000.1072884,
+      "workload_fingerprint": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a"
+    },
+    "fifo": {
+      "control_failures": 0,
+      "median_resolution_delay_minutes": 66.05000000074506,
+      "operator_count": 1,
+      "outcomes": [
+        {
+          "amount_atomic": 12000000,
+          "case_id": "ex-01-authorization-reject",
+          "completed_at": 29460434.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 14.050000000745058,
+          "started_at": 29460420.05
+        },
+        {
+          "amount_atomic": 16000000,
+          "case_id": "ex-02-preparation-failure",
+          "completed_at": 29460450.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 25.050000000745058,
+          "started_at": 29460434.05
+        },
+        {
+          "amount_atomic": 30000000,
+          "case_id": "ex-03-timeout-late-success",
+          "completed_at": 29460470.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 5.050000000745058,
+          "resolution_delay_minutes": 40.05000000074506,
+          "started_at": 29460450.05
+        },
+        {
+          "amount_atomic": 8000000,
+          "case_id": "ex-04-conclusive-failure",
+          "completed_at": 29460488.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 8.050000000745058,
+          "resolution_delay_minutes": 53.05000000074506,
+          "started_at": 29460470.05
+        },
+        {
+          "amount_atomic": 45000000,
+          "case_id": "ex-05-paid-lost-delivery",
+          "completed_at": 29460506.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 36.05000000074506,
+          "resolution_delay_minutes": 66.05000000074506,
+          "started_at": 29460488.05
+        },
+        {
+          "amount_atomic": 9000000,
+          "case_id": "ex-06-repeated-across-restart",
+          "completed_at": 29460524.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 79.05000000074506,
+          "started_at": 29460506.05
+        },
+        {
+          "amount_atomic": 22000000,
+          "case_id": "ex-08-second-authorization",
+          "completed_at": 29460540.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.05000000074505806,
+          "resolution_delay_minutes": 85.05000000074506,
+          "started_at": 29460524.05
+        },
+        {
+          "amount_atomic": 33000000,
+          "case_id": "ex-09-evidence-mismatch",
+          "completed_at": 29460554.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 59.05000000074506,
+          "resolution_delay_minutes": 94.05000000074506,
+          "started_at": 29460540.05
+        },
+        {
+          "amount_atomic": 20000000,
+          "case_id": "ex-10-cross-order-evidence-reuse",
+          "completed_at": 29460572.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 32.05000000074506,
+          "resolution_delay_minutes": 107.05000000074506,
+          "started_at": 29460554.05
+        }
+      ],
+      "overdue_count": 6,
+      "p95_resolution_delay_minutes": 107.05000000074506,
+      "policy": "fifo",
+      "sla_window_minutes": 30.0,
+      "total_control_failures": 0,
+      "touches": 9,
+      "unfinished_control_failures": 0,
+      "unfinished_count": 0,
+      "unfinished_value_atomic": 0,
+      "value_weighted_overdue_minutes": 4428900000.11772,
+      "workload_fingerprint": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a"
+    },
+    "hybrid": {
+      "control_failures": 0,
+      "median_resolution_delay_minutes": 77.05000000074506,
+      "operator_count": 1,
+      "outcomes": [
+        {
+          "amount_atomic": 12000000,
+          "case_id": "ex-01-authorization-reject",
+          "completed_at": 29460434.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 14.050000000745058,
+          "started_at": 29460420.05
+        },
+        {
+          "amount_atomic": 30000000,
+          "case_id": "ex-03-timeout-late-success",
+          "completed_at": 29460454.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 24.050000000745058,
+          "started_at": 29460434.05
+        },
+        {
+          "amount_atomic": 45000000,
+          "case_id": "ex-05-paid-lost-delivery",
+          "completed_at": 29460472.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 2.050000000745058,
+          "resolution_delay_minutes": 32.05000000074506,
+          "started_at": 29460454.05
+        },
+        {
+          "amount_atomic": 33000000,
+          "case_id": "ex-09-evidence-mismatch",
+          "completed_at": 29460486.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 26.050000000745058,
+          "started_at": 29460472.05
+        },
+        {
+          "amount_atomic": 16000000,
+          "case_id": "ex-02-preparation-failure",
+          "completed_at": 29460502.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 77.05000000074506,
+          "started_at": 29460486.05
+        },
+        {
+          "amount_atomic": 8000000,
+          "case_id": "ex-04-conclusive-failure",
+          "completed_at": 29460520.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 40.05000000074506,
+          "resolution_delay_minutes": 85.05000000074506,
+          "started_at": 29460502.05
+        },
+        {
+          "amount_atomic": 22000000,
+          "case_id": "ex-08-second-authorization",
+          "completed_at": 29460536.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 81.05000000074506,
+          "started_at": 29460520.05
+        },
+        {
+          "amount_atomic": 20000000,
+          "case_id": "ex-10-cross-order-evidence-reuse",
+          "completed_at": 29460554.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 14.050000000745058,
+          "resolution_delay_minutes": 89.05000000074506,
+          "started_at": 29460536.05
+        },
+        {
+          "amount_atomic": 9000000,
+          "case_id": "ex-06-repeated-across-restart",
+          "completed_at": 29460572.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 32.05000000074506,
+          "resolution_delay_minutes": 127.05000000074506,
+          "started_at": 29460554.05
+        }
+      ],
+      "overdue_count": 4,
+      "p95_resolution_delay_minutes": 127.05000000074506,
+      "policy": "hybrid",
+      "sla_window_minutes": 30.0,
+      "total_control_failures": 0,
+      "touches": 9,
+      "unfinished_control_failures": 0,
+      "unfinished_count": 0,
+      "unfinished_value_atomic": 0,
+      "value_weighted_overdue_minutes": 982100000.0610948,
+      "workload_fingerprint": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a"
+    },
+    "value_first": {
+      "control_failures": 0,
+      "median_resolution_delay_minutes": 47.05000000074506,
+      "operator_count": 1,
+      "outcomes": [
+        {
+          "amount_atomic": 12000000,
+          "case_id": "ex-01-authorization-reject",
+          "completed_at": 29460434.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 14.050000000745058,
+          "started_at": 29460420.05
+        },
+        {
+          "amount_atomic": 30000000,
+          "case_id": "ex-03-timeout-late-success",
+          "completed_at": 29460454.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 24.050000000745058,
+          "started_at": 29460434.05
+        },
+        {
+          "amount_atomic": 45000000,
+          "case_id": "ex-05-paid-lost-delivery",
+          "completed_at": 29460472.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 2.050000000745058,
+          "resolution_delay_minutes": 32.05000000074506,
+          "started_at": 29460454.05
+        },
+        {
+          "amount_atomic": 33000000,
+          "case_id": "ex-09-evidence-mismatch",
+          "completed_at": 29460486.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 26.050000000745058,
+          "started_at": 29460472.05
+        },
+        {
+          "amount_atomic": 22000000,
+          "case_id": "ex-08-second-authorization",
+          "completed_at": 29460502.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 47.05000000074506,
+          "started_at": 29460486.05
+        },
+        {
+          "amount_atomic": 20000000,
+          "case_id": "ex-10-cross-order-evidence-reuse",
+          "completed_at": 29460520.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 0.0,
+          "resolution_delay_minutes": 55.05000000074506,
+          "started_at": 29460502.05
+        },
+        {
+          "amount_atomic": 16000000,
+          "case_id": "ex-02-preparation-failure",
+          "completed_at": 29460536.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 26.050000000745058,
+          "resolution_delay_minutes": 111.05000000074506,
+          "started_at": 29460520.05
+        },
+        {
+          "amount_atomic": 9000000,
+          "case_id": "ex-06-repeated-across-restart",
+          "completed_at": 29460554.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 14.050000000745058,
+          "resolution_delay_minutes": 109.05000000074506,
+          "started_at": 29460536.05
+        },
+        {
+          "amount_atomic": 8000000,
+          "case_id": "ex-04-conclusive-failure",
+          "completed_at": 29460572.05,
+          "control_failures": 0,
+          "operator_id": 0,
+          "overdue_minutes": 92.05000000074506,
+          "resolution_delay_minutes": 137.05000000074506,
+          "started_at": 29460554.05
+        }
+      ],
+      "overdue_count": 4,
+      "p95_resolution_delay_minutes": 137.05000000074506,
+      "policy": "value_first",
+      "sla_window_minutes": 30.0,
+      "total_control_failures": 0,
+      "touches": 9,
+      "unfinished_control_failures": 0,
+      "unfinished_count": 0,
+      "unfinished_value_atomic": 0,
+      "value_weighted_overdue_minutes": 1371900000.0581145,
+      "workload_fingerprint": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a"
+    }
+  }
+}

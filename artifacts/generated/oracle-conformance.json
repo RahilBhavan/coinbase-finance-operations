@@ -1,0 +1,268 @@
+{
+  "_meta": {
+    "claim_boundary": "Chain evidence does not prove delivery.",
+    "data_classification": "synthetic",
+    "fixture_sha256": "c9ca5821686c1490324493d54f778efd50c38a10eb454e47eac677757a795539",
+    "oracle_sha256": "33a4d0526243e0dc7f89f91f3e06aa5bd109a741510b857a20feae7f185e465a",
+    "policy_workload_hash": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a",
+    "run_id": "run-a6cf865a0efd58de"
+  },
+  "results": [
+    {
+      "actual": {
+        "actionable": false,
+        "expected_exception_type": null,
+        "expected_financials": {
+          "captured_atomic": 12500000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "delivered",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "hp-01",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": false,
+        "expected_exception_type": null,
+        "expected_financials": {
+          "captured_atomic": 25000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "delivered",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "hp-02",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": false,
+        "expected_exception_type": null,
+        "expected_financials": {
+          "captured_atomic": 5000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "delivered",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "hp-03",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": false,
+        "expected_exception_type": null,
+        "expected_financials": {
+          "captured_atomic": 100000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "delivered",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "hp-04",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "authorization_rejected",
+        "expected_financials": {
+          "captured_atomic": 0,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "not_started",
+        "expected_payment_state": "not_submitted"
+      },
+      "fixture_id": "ex-01-authorization-reject",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "resource_preparation_failed",
+        "expected_financials": {
+          "captured_atomic": 0,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "preparation_failed",
+        "expected_payment_state": "not_submitted"
+      },
+      "fixture_id": "ex-02-preparation-failure",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "delivery_pending_after_late_settlement",
+        "expected_financials": {
+          "captured_atomic": 30000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "prepared",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "ex-03-timeout-late-success",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "settlement_failed",
+        "expected_financials": {
+          "captured_atomic": 0,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "prepared",
+        "expected_payment_state": "failed"
+      },
+      "fixture_id": "ex-04-conclusive-failure",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "paid_delivery_failed",
+        "expected_financials": {
+          "captured_atomic": 45000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "delivery_failed",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "ex-05-paid-lost-delivery",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "delivery_pending",
+        "expected_financials": {
+          "captured_atomic": 9000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "prepared",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "ex-06-repeated-across-restart",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": false,
+        "expected_exception_type": "duplicate_request_suppressed",
+        "expected_financials": {
+          "captured_atomic": 18000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "delivered",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "ex-07-duplicate-request",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "redundant_authorization_blocked",
+        "expected_financials": {
+          "captured_atomic": 22000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "not_started",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "ex-08-second-authorization",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "payment_evidence_mismatch",
+        "expected_financials": {
+          "captured_atomic": 0,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "not_started",
+        "expected_payment_state": "unknown"
+      },
+      "fixture_id": "ex-09-evidence-mismatch",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": true,
+        "expected_exception_type": "cross_order_payment_claim_conflict",
+        "expected_financials": {
+          "captured_atomic": 20000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "not_started",
+        "expected_payment_state": "conflicted"
+      },
+      "fixture_id": "ex-10-cross-order-evidence-reuse",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": false,
+        "expected_exception_type": "payment_observation_invalidated",
+        "expected_financials": {
+          "captured_atomic": 0,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 0
+        },
+        "expected_fulfillment_state": "prepared",
+        "expected_payment_state": "unknown"
+      },
+      "fixture_id": "ex-11-prefinality-invalidated",
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "actionable": false,
+        "expected_exception_type": "refund_outcome_unknown",
+        "expected_financials": {
+          "captured_atomic": 100000000,
+          "completed_refund_atomic": 0,
+          "reserved_refund_atomic": 70000000
+        },
+        "expected_fulfillment_state": "not_started",
+        "expected_payment_state": "observed"
+      },
+      "fixture_id": "ex-12-concurrent-refunds",
+      "mismatches": [],
+      "status": "PASS"
+    }
+  ]
+}

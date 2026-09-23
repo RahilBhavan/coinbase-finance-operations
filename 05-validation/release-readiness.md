@@ -1,0 +1,25 @@
+# Release readiness — 2026-09-22
+
+## Decision
+
+The repository is ready to share as a **synthetic portfolio project**. It is not production-ready and does not claim Coinbase endorsement, live x402 interoperability, or practitioner validation. The first policy gate did not justify replacing FIFO; that negative result is retained rather than optimized away.
+
+## Verified evidence
+
+| Check | Command | Result |
+|---|---|---|
+| Full automated suite | `PYTHONPATH=src python3 -m unittest discover -s tests -v` | PASS — 53 tests |
+| Reproducible build | `PYTHONPATH=src python3 -m exception_desk.cli --root .` | PASS — stable run `run-a6cf865a0efd58de`; 16 cases; 65 events; 3,600 scenarios |
+| Cross-artifact gate | `PYTHONPATH=src python3 -c 'from pathlib import Path; from exception_desk.consistency import assert_artifacts_consistent; print(assert_artifacts_consistent(Path.cwd())["status"])'` | PASS — 26 checks |
+
+The gate verifies authoritative input hashes, shared run identity, case/event/oracle counts, four-policy CSV/JSON agreement, scenario count, synthetic labels, and the boundary that chain evidence does not prove delivery.
+
+## Remaining gates
+
+1. Run the existing protocol with up to three eligible payments or operations practitioners. External review is currently unperformed.
+2. If the project is ever presented as an integration rather than a simulation, add sandbox interoperability against a pinned x402 implementation and document the accepted finality policy.
+3. Add direct integrity validation for the PDF, workbook, video, and ZIP. They currently rely on the versioned packaging manifest while JSON, CSV, and HTML are validated directly.
+4. Validate accessibility and operator comprehension with people, not only markup and deterministic tests.
+5. Before any production use, replace synthetic assumptions with representative workload data and complete security, privacy, performance, authorization, and failure-recovery reviews.
+
+These are deliberately described as future gates, not hidden release defects. None is required to understand or reproduce the current local simulation.

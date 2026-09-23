@@ -1,0 +1,12 @@
+This is a simulated settlement exception desk for a fictional institutional data seller using fixed price x402 payments on Base Sepolia. The operating decision is whether to keep first in first out handling or adopt a deadline first queue. The initial result is deliberately honest: keep FIFO, because the alternative did not reduce the number of overdue cases.
+
+The first control is simple and important. A settlement request timeout does not prove failure. It means the outcome is unknown. The operator reconciles the original attempt and blocks any automatic second charge. A valid authorization is not settlement evidence, and a timeout is not permission to start over.
+
+In this incident, late chain evidence arrives for the original attempt. The payment becomes observed, but the report is only prepared; delivery is still unresolved. The safe action is to recover the persisted report and request delivery acknowledgment. Charging again or creating another entitlement is forbidden.
+
+Refunds use a separate reservation ledger. Approval reserves refundable balance before submission. If submission has an unknown result, the reservation remains. A concurrent request that would push completed refunds plus active reservations above the captured amount is rejected. The original capture remains in history even after a refund settles.
+
+Both queue policies received the same nine actionable cases, evidence times, handling durations, operator capacity, and control rules. FIFO and deadline first each ended with six overdue cases. Deadline first reduced median delay and value weighted overdue minutes, but the declared primary gate required at least fifteen percent fewer overdue cases. The gate was not met.
+
+The recommendation is to retain FIFO as the working baseline and test a narrower hybrid next, such as deadline first only for actionable cases inside a defined service level window. All records, timings, entities, amounts, and results are simulated. This project uses no live wallet, facilitator, payment, customer, Coinbase system, or claimed operational savings.
+

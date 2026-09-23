@@ -1,0 +1,142 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "required_files",
+      "status": "PASS",
+      "detail": "all inputs and outputs present"
+    },
+    {
+      "name": "identity_fields",
+      "status": "PASS",
+      "detail": "summary contains run, fixture, oracle, and policy workload identities"
+    },
+    {
+      "name": "fixture_manifest_hash",
+      "status": "PASS",
+      "detail": "fixture input matches manifest hash"
+    },
+    {
+      "name": "oracle_manifest_hash",
+      "status": "PASS",
+      "detail": "oracle input matches manifest hash"
+    },
+    {
+      "name": "manifest_inputs",
+      "status": "PASS",
+      "detail": "summary names the two authoritative input paths"
+    },
+    {
+      "name": "projections.json:identity",
+      "status": "PASS",
+      "detail": "shared run and input identities match summary"
+    },
+    {
+      "name": "projections.json:labels",
+      "status": "PASS",
+      "detail": "synthetic and delivery claim-boundary labels are present"
+    },
+    {
+      "name": "oracle-conformance.json:identity",
+      "status": "PASS",
+      "detail": "shared run and input identities match summary"
+    },
+    {
+      "name": "oracle-conformance.json:labels",
+      "status": "PASS",
+      "detail": "synthetic and delivery claim-boundary labels are present"
+    },
+    {
+      "name": "policy-results.json:identity",
+      "status": "PASS",
+      "detail": "shared run and input identities match summary"
+    },
+    {
+      "name": "policy-results.json:labels",
+      "status": "PASS",
+      "detail": "synthetic and delivery claim-boundary labels are present"
+    },
+    {
+      "name": "scenario-sweep-summary.json:identity",
+      "status": "PASS",
+      "detail": "shared run and input identities match summary"
+    },
+    {
+      "name": "scenario-sweep-summary.json:labels",
+      "status": "PASS",
+      "detail": "synthetic and delivery claim-boundary labels are present"
+    },
+    {
+      "name": "case_count",
+      "status": "PASS",
+      "detail": "projection, oracle, and summary case counts agree"
+    },
+    {
+      "name": "event_count",
+      "status": "PASS",
+      "detail": "source event count agrees with summary"
+    },
+    {
+      "name": "oracle_pass_count",
+      "status": "PASS",
+      "detail": "every oracle case passes and agrees with summary"
+    },
+    {
+      "name": "scenario_count",
+      "status": "PASS",
+      "detail": "scenario sweep and summary counts agree"
+    },
+    {
+      "name": "reconciliation.csv:identity",
+      "status": "PASS",
+      "detail": "every row carries shared run and input identities"
+    },
+    {
+      "name": "reconciliation.csv:labels",
+      "status": "PASS",
+      "detail": "every row carries synthetic and claim-boundary labels"
+    },
+    {
+      "name": "policy-results.csv:identity",
+      "status": "PASS",
+      "detail": "every row carries shared run and input identities"
+    },
+    {
+      "name": "policy-results.csv:labels",
+      "status": "PASS",
+      "detail": "every row carries synthetic and claim-boundary labels"
+    },
+    {
+      "name": "reconciliation_case_count",
+      "status": "PASS",
+      "detail": "one reconciliation row exists per case"
+    },
+    {
+      "name": "policy_csv_json_agreement",
+      "status": "PASS",
+      "detail": "policy names and all exported metrics agree"
+    },
+    {
+      "name": "policy_workload_identity",
+      "status": "PASS",
+      "detail": "all policies use the declared identical workload"
+    },
+    {
+      "name": "operator_report:identity",
+      "status": "PASS",
+      "detail": "HTML embeds shared run and input identities"
+    },
+    {
+      "name": "operator_report:labels",
+      "status": "PASS",
+      "detail": "HTML visibly labels synthetic data and the delivery claim boundary"
+    }
+  ],
+  "errors": [],
+  "metadata": {
+    "run_id": "run-a6cf865a0efd58de",
+    "fixture_sha256": "c9ca5821686c1490324493d54f778efd50c38a10eb454e47eac677757a795539",
+    "oracle_sha256": "33a4d0526243e0dc7f89f91f3e06aa5bd109a741510b857a20feae7f185e465a",
+    "policy_workload_hash": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a"
+  }
+}

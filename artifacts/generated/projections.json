@@ -1,0 +1,1272 @@
+{
+  "_meta": {
+    "claim_boundary": "Chain evidence does not prove delivery.",
+    "data_classification": "synthetic",
+    "fixture_sha256": "c9ca5821686c1490324493d54f778efd50c38a10eb454e47eac677757a795539",
+    "oracle_sha256": "33a4d0526243e0dc7f89f91f3e06aa5bd109a741510b857a20feae7f185e465a",
+    "policy_workload_hash": "6d61d20762da8a315b2e9762d0d71d844b9dca5aa796f8f430c16b1fd23c956a",
+    "run_id": "run-a6cf865a0efd58de"
+  },
+  "cases": {
+    "ex-01-authorization-reject": {
+      "applied_event_ids": [
+        "ex-01-001",
+        "ex-01-002"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_rejected"
+      ],
+      "chain_observations": {},
+      "evidence_claims": {},
+      "exceptions": {
+        "ex-01-002": {
+          "actionable": true,
+          "exception_id": "ex-01-002",
+          "source_event_id": "ex-01-002",
+          "status": "actionable",
+          "subject_id": "order-ex-01",
+          "type": "authorization_rejected"
+        }
+      },
+      "fulfillments": {},
+      "orders": {
+        "order-ex-01": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T16:00:00Z",
+          "delivery_state": "not_prepared",
+          "entity": "delta-partners",
+          "expected_amount_atomic": 12000000,
+          "expected_atomic_amount": 12000000,
+          "idempotency_key": "purchase-ex-01",
+          "network": "eip155:84532",
+          "order_id": "order-ex-01",
+          "payment_state": "unpaid",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-01",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {},
+      "refunds": {}
+    },
+    "ex-02-preparation-failure": {
+      "applied_event_ids": [
+        "ex-02-001",
+        "ex-02-002",
+        "ex-02-003"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_verified",
+        "authorization_verified",
+        "resource_preparation_failed"
+      ],
+      "chain_observations": {},
+      "evidence_claims": {},
+      "exceptions": {
+        "ex-02-003": {
+          "actionable": true,
+          "exception_id": "ex-02-003",
+          "source_event_id": "ex-02-003",
+          "status": "actionable",
+          "subject_id": "order-ex-02",
+          "type": "resource_preparation_failed"
+        }
+      },
+      "fulfillments": {
+        "order-ex-02": {
+          "order_id": "order-ex-02",
+          "reason": "upstream_dataset_unavailable",
+          "sequence": 3,
+          "source_event_type": "resource_preparation_failed",
+          "state": "preparation_failed"
+        }
+      },
+      "orders": {
+        "order-ex-02": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T16:30:00Z",
+          "delivery_state": "preparation_failed",
+          "entity": "ember-investments",
+          "expected_amount_atomic": 16000000,
+          "expected_atomic_amount": 16000000,
+          "idempotency_key": "purchase-ex-02",
+          "network": "eip155:84532",
+          "order_id": "order-ex-02",
+          "payment_state": "unpaid",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-02",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-02-1": {
+          "attempt_id": "attempt-ex-02-1",
+          "authorization_fingerprint": "auth-ex-02-1",
+          "order_id": "order-ex-02",
+          "outcome": "unknown",
+          "sequence": 2,
+          "source_event_type": "authorization_verified",
+          "timed_out": false,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    },
+    "ex-03-timeout-late-success": {
+      "applied_event_ids": [
+        "ex-03-001",
+        "ex-03-002",
+        "ex-03-003",
+        "ex-03-004",
+        "ex-03-005"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_verified",
+        "authorization_verified",
+        "resource_prepared",
+        "settlement_timed_out",
+        "settlement_timed_out",
+        "payment_observed"
+      ],
+      "chain_observations": {
+        "ex-03-005": {
+          "amount_atomic": 30000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-03-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxex03|0",
+          "event_id": "ex-03-005",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-03",
+          "recipient": "0xmerchant01",
+          "sequence": 5,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxex03"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxex03|0": "order-ex-03"
+      },
+      "exceptions": {},
+      "fulfillments": {
+        "order-ex-03": {
+          "order_id": "order-ex-03",
+          "resource_digest": "sha256:report-ex-03",
+          "sequence": 3,
+          "source_event_type": "resource_prepared",
+          "state": "prepared"
+        }
+      },
+      "orders": {
+        "order-ex-03": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T15:45:00Z",
+          "delivery_state": "prepared",
+          "entity": "frost-holdings",
+          "expected_amount_atomic": 30000000,
+          "expected_atomic_amount": 30000000,
+          "idempotency_key": "purchase-ex-03",
+          "network": "eip155:84532",
+          "order_id": "order-ex-03",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-03",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-03-1": {
+          "attempt_id": "attempt-ex-03-1",
+          "authorization_fingerprint": "auth-ex-03-1",
+          "evidence_claim": "eip155:84532|0xtxex03|0",
+          "order_id": "order-ex-03",
+          "outcome": "observed",
+          "sequence": 2,
+          "source_event_type": "authorization_verified",
+          "timed_out": true,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    },
+    "ex-04-conclusive-failure": {
+      "applied_event_ids": [
+        "ex-04-001",
+        "ex-04-002",
+        "ex-04-003",
+        "ex-04-004"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_verified",
+        "authorization_verified",
+        "resource_prepared",
+        "settlement_failed",
+        "settlement_failed"
+      ],
+      "chain_observations": {},
+      "evidence_claims": {},
+      "exceptions": {
+        "ex-04-004": {
+          "actionable": true,
+          "exception_id": "ex-04-004",
+          "source_event_id": "ex-04-004",
+          "status": "actionable",
+          "subject_id": "order-ex-04",
+          "type": "settlement_failed"
+        }
+      },
+      "fulfillments": {
+        "order-ex-04": {
+          "order_id": "order-ex-04",
+          "resource_digest": "sha256:report-ex-04",
+          "sequence": 3,
+          "source_event_type": "resource_prepared",
+          "state": "prepared"
+        }
+      },
+      "orders": {
+        "order-ex-04": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T16:00:00Z",
+          "delivery_state": "prepared",
+          "entity": "granite-strategy",
+          "expected_amount_atomic": 8000000,
+          "expected_atomic_amount": 8000000,
+          "idempotency_key": "purchase-ex-04",
+          "network": "eip155:84532",
+          "order_id": "order-ex-04",
+          "payment_state": "unpaid",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-04",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-04-1": {
+          "attempt_id": "attempt-ex-04-1",
+          "authorization_fingerprint": "auth-ex-04-1",
+          "order_id": "order-ex-04",
+          "outcome": "failed",
+          "sequence": 2,
+          "source_event_type": "authorization_verified",
+          "timed_out": false,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    },
+    "ex-05-paid-lost-delivery": {
+      "applied_event_ids": [
+        "ex-05-001",
+        "ex-05-002",
+        "ex-05-003",
+        "ex-05-004"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "resource_prepared",
+        "payment_observed",
+        "delivery_failed"
+      ],
+      "chain_observations": {
+        "ex-05-003": {
+          "amount_atomic": 45000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-05-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxex05|0",
+          "event_id": "ex-05-003",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-05",
+          "recipient": "0xmerchant01",
+          "sequence": 3,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxex05"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxex05|0": "order-ex-05"
+      },
+      "exceptions": {
+        "ex-05-004": {
+          "actionable": true,
+          "exception_id": "ex-05-004",
+          "source_event_id": "ex-05-004",
+          "status": "actionable",
+          "subject_id": "order-ex-05",
+          "type": "paid_delivery_failed"
+        }
+      },
+      "fulfillments": {
+        "order-ex-05": {
+          "delivery_id": "delivery-ex-05-1",
+          "order_id": "order-ex-05",
+          "reason": "response_connection_reset",
+          "resource_digest": "sha256:report-ex-05",
+          "sequence": 4,
+          "source_event_type": "delivery_failed",
+          "state": "delivery_failed"
+        }
+      },
+      "orders": {
+        "order-ex-05": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T15:50:00Z",
+          "delivery_state": "delivery_failed",
+          "entity": "harbor-analytics",
+          "expected_amount_atomic": 45000000,
+          "expected_atomic_amount": 45000000,
+          "idempotency_key": "purchase-ex-05",
+          "network": "eip155:84532",
+          "order_id": "order-ex-05",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-05",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-05-1": {
+          "attempt_id": "attempt-ex-05-1",
+          "evidence_claim": "eip155:84532|0xtxex05|0",
+          "order_id": "order-ex-05",
+          "outcome": "observed",
+          "timed_out": false
+        }
+      },
+      "refunds": {}
+    },
+    "ex-06-repeated-across-restart": {
+      "applied_event_ids": [
+        "ex-06-001",
+        "ex-06-002",
+        "ex-06-003",
+        "ex-06-004"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "resource_prepared",
+        "payment_observed",
+        "ingestion_replay_detected"
+      ],
+      "chain_observations": {
+        "ex-06-003": {
+          "amount_atomic": 9000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-06-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxex06|0",
+          "event_id": "ex-06-003",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-06",
+          "recipient": "0xmerchant01",
+          "sequence": 3,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxex06"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxex06|0": "order-ex-06"
+      },
+      "exceptions": {
+        "ex-06-004": {
+          "actionable": true,
+          "exception_id": "ex-06-004",
+          "source_event_id": "ex-06-004",
+          "status": "actionable",
+          "subject_id": "order-ex-06",
+          "type": "delivery_pending"
+        }
+      },
+      "fulfillments": {
+        "order-ex-06": {
+          "order_id": "order-ex-06",
+          "resource_digest": "sha256:report-ex-06",
+          "sequence": 2,
+          "source_event_type": "resource_prepared",
+          "state": "prepared"
+        }
+      },
+      "orders": {
+        "order-ex-06": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T17:00:00Z",
+          "delivery_state": "prepared",
+          "entity": "iris-markets",
+          "expected_amount_atomic": 9000000,
+          "expected_atomic_amount": 9000000,
+          "idempotency_key": "purchase-ex-06",
+          "network": "eip155:84532",
+          "order_id": "order-ex-06",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-06",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-06-1": {
+          "attempt_id": "attempt-ex-06-1",
+          "evidence_claim": "eip155:84532|0xtxex06|0",
+          "order_id": "order-ex-06",
+          "outcome": "observed",
+          "timed_out": false
+        }
+      },
+      "refunds": {}
+    },
+    "ex-07-duplicate-request": {
+      "applied_event_ids": [
+        "ex-07-001",
+        "ex-07-002",
+        "ex-07-003",
+        "ex-07-004",
+        "ex-07-005"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "resource_prepared",
+        "payment_observed",
+        "delivery_acknowledged",
+        "duplicate_request_received"
+      ],
+      "chain_observations": {
+        "ex-07-003": {
+          "amount_atomic": 18000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-07-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxex07|0",
+          "event_id": "ex-07-003",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-07",
+          "recipient": "0xmerchant01",
+          "sequence": 3,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxex07"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxex07|0": "order-ex-07"
+      },
+      "exceptions": {
+        "ex-07-005": {
+          "actionable": false,
+          "exception_id": "ex-07-005",
+          "source_event_id": "ex-07-005",
+          "status": "monitoring",
+          "subject_id": "order-ex-07",
+          "type": "duplicate_request_suppressed"
+        }
+      },
+      "fulfillments": {
+        "order-ex-07": {
+          "client_acknowledgment": "ack-ex-07",
+          "delivery_id": "delivery-ex-07-1",
+          "order_id": "order-ex-07",
+          "resource_digest": "sha256:report-ex-07",
+          "sequence": 4,
+          "source_event_type": "delivery_acknowledged",
+          "state": "delivered"
+        }
+      },
+      "orders": {
+        "order-ex-07": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T16:30:00Z",
+          "delivery_state": "delivered",
+          "entity": "juniper-credit",
+          "expected_amount_atomic": 18000000,
+          "expected_atomic_amount": 18000000,
+          "idempotency_key": "purchase-ex-07",
+          "network": "eip155:84532",
+          "order_id": "order-ex-07",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-07",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-07-1": {
+          "attempt_id": "attempt-ex-07-1",
+          "evidence_claim": "eip155:84532|0xtxex07|0",
+          "order_id": "order-ex-07",
+          "outcome": "observed",
+          "timed_out": false
+        }
+      },
+      "refunds": {}
+    },
+    "ex-08-second-authorization": {
+      "applied_event_ids": [
+        "ex-08-001",
+        "ex-08-002",
+        "ex-08-003"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "payment_observed",
+        "authorization_verified",
+        "authorization_verified"
+      ],
+      "chain_observations": {
+        "ex-08-002": {
+          "amount_atomic": 22000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-08-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxex08|0",
+          "event_id": "ex-08-002",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-08",
+          "recipient": "0xmerchant01",
+          "sequence": 2,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxex08"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxex08|0": "order-ex-08"
+      },
+      "exceptions": {
+        "ex-08-003": {
+          "actionable": true,
+          "exception_id": "ex-08-003",
+          "source_event_id": "ex-08-003",
+          "status": "actionable",
+          "subject_id": "order-ex-08",
+          "type": "redundant_authorization_blocked"
+        }
+      },
+      "fulfillments": {},
+      "orders": {
+        "order-ex-08": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T17:00:00Z",
+          "delivery_state": "not_prepared",
+          "entity": "keystone-assets",
+          "expected_amount_atomic": 22000000,
+          "expected_atomic_amount": 22000000,
+          "idempotency_key": "purchase-ex-08",
+          "network": "eip155:84532",
+          "order_id": "order-ex-08",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-08",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-08-1": {
+          "attempt_id": "attempt-ex-08-1",
+          "evidence_claim": "eip155:84532|0xtxex08|0",
+          "order_id": "order-ex-08",
+          "outcome": "observed",
+          "timed_out": false
+        },
+        "attempt-ex-08-2": {
+          "attempt_id": "attempt-ex-08-2",
+          "authorization_fingerprint": "auth-ex-08-2",
+          "order_id": "order-ex-08",
+          "outcome": "unknown",
+          "sequence": 3,
+          "source_event_type": "authorization_verified",
+          "timed_out": false,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    },
+    "ex-09-evidence-mismatch": {
+      "applied_event_ids": [
+        "ex-09-001",
+        "ex-09-002"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "payment_evidence_received"
+      ],
+      "chain_observations": {},
+      "evidence_claims": {},
+      "exceptions": {
+        "ex-09-002": {
+          "actionable": true,
+          "exception_id": "ex-09-002",
+          "source_event_id": "ex-09-002",
+          "status": "actionable",
+          "subject_id": "order-ex-09",
+          "type": "payment_evidence_mismatch"
+        }
+      },
+      "fulfillments": {},
+      "orders": {
+        "order-ex-09": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T16:15:00Z",
+          "delivery_state": "not_prepared",
+          "entity": "lighthouse-macro",
+          "expected_amount_atomic": 33000000,
+          "expected_atomic_amount": 33000000,
+          "idempotency_key": "purchase-ex-09",
+          "network": "eip155:84532",
+          "order_id": "order-ex-09",
+          "payment_state": "unknown",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-09",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {},
+      "refunds": {}
+    },
+    "ex-10-cross-order-evidence-reuse": {
+      "applied_event_ids": [
+        "ex-10-001",
+        "ex-10-002",
+        "ex-10-003",
+        "ex-10-004"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "order_opened",
+        "order_opened",
+        "payment_observed",
+        "payment_claim_conflicted"
+      ],
+      "chain_observations": {
+        "ex-10-003": {
+          "amount_atomic": 20000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-10-a-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxshared10|0",
+          "event_id": "ex-10-003",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-10-a",
+          "recipient": "0xmerchant01",
+          "sequence": 3,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxshared10"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxshared10|0": "order-ex-10-a"
+      },
+      "exceptions": {
+        "ex-10-004": {
+          "actionable": true,
+          "exception_id": "ex-10-004",
+          "source_event_id": "ex-10-004",
+          "status": "actionable",
+          "subject_id": "order-ex-10-b",
+          "type": "cross_order_payment_claim_conflict"
+        }
+      },
+      "fulfillments": {},
+      "orders": {
+        "order-ex-10-a": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T17:00:00Z",
+          "delivery_state": "not_prepared",
+          "entity": "meridian-fund",
+          "expected_amount_atomic": 20000000,
+          "expected_atomic_amount": 20000000,
+          "idempotency_key": "purchase-ex-10-a",
+          "network": "eip155:84532",
+          "order_id": "order-ex-10-a",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-10-a",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        },
+        "order-ex-10-b": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T17:00:00Z",
+          "delivery_state": "not_prepared",
+          "entity": "meridian-fund",
+          "expected_amount_atomic": 20000000,
+          "expected_atomic_amount": 20000000,
+          "idempotency_key": "purchase-ex-10-b",
+          "network": "eip155:84532",
+          "order_id": "order-ex-10-b",
+          "payment_state": "conflicted",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-10-b",
+          "sequence": 2,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-10-a-1": {
+          "attempt_id": "attempt-ex-10-a-1",
+          "evidence_claim": "eip155:84532|0xtxshared10|0",
+          "order_id": "order-ex-10-a",
+          "outcome": "observed",
+          "timed_out": false
+        }
+      },
+      "refunds": {}
+    },
+    "ex-11-prefinality-invalidated": {
+      "applied_event_ids": [
+        "ex-11-001",
+        "ex-11-002",
+        "ex-11-003",
+        "ex-11-004"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "resource_prepared",
+        "payment_observed",
+        "chain_observation_invalidated"
+      ],
+      "chain_observations": {
+        "ex-11-003": {
+          "amount_atomic": 60000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-11-1",
+          "canonical": false,
+          "claim_key": "eip155:84532|0xtxex11|0",
+          "event_id": "ex-11-003",
+          "finality_stage": "preconfirmation",
+          "invalidated_by": "ex-11-004",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-11",
+          "recipient": "0xmerchant01",
+          "sequence": 3,
+          "source_event_type": "payment_observed",
+          "stage": "preconfirmation",
+          "transaction_ref": "0xtxex11"
+        }
+      },
+      "evidence_claims": {},
+      "exceptions": {
+        "ex-11-004": {
+          "actionable": false,
+          "exception_id": "ex-11-004",
+          "source_event_id": "ex-11-004",
+          "status": "monitoring",
+          "subject_id": "order-ex-11",
+          "type": "payment_observation_invalidated"
+        }
+      },
+      "fulfillments": {
+        "order-ex-11": {
+          "order_id": "order-ex-11",
+          "resource_digest": "sha256:report-ex-11",
+          "sequence": 2,
+          "source_event_type": "resource_prepared",
+          "state": "prepared"
+        }
+      },
+      "orders": {
+        "order-ex-11": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T16:30:00Z",
+          "delivery_state": "prepared",
+          "entity": "nova-credit",
+          "expected_amount_atomic": 60000000,
+          "expected_atomic_amount": 60000000,
+          "idempotency_key": "purchase-ex-11",
+          "network": "eip155:84532",
+          "order_id": "order-ex-11",
+          "payment_state": "unknown",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-11",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-11-1": {
+          "attempt_id": "attempt-ex-11-1",
+          "evidence_claim": "eip155:84532|0xtxex11|0",
+          "order_id": "order-ex-11",
+          "outcome": "unknown",
+          "timed_out": false
+        }
+      },
+      "refunds": {}
+    },
+    "ex-12-concurrent-refunds": {
+      "applied_event_ids": [
+        "ex-12-001",
+        "ex-12-002",
+        "ex-12-003",
+        "ex-12-004",
+        "ex-12-005"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "payment_observed",
+        "refund_approved_reserved",
+        "refund_submitted_unknown",
+        "refund_reservation_rejected"
+      ],
+      "chain_observations": {
+        "ex-12-002": {
+          "amount_atomic": 100000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-ex-12-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxex12|0",
+          "event_id": "ex-12-002",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-ex-12",
+          "recipient": "0xmerchant01",
+          "sequence": 2,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxex12"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxex12|0": "order-ex-12"
+      },
+      "exceptions": {
+        "ex-12-004": {
+          "actionable": false,
+          "exception_id": "ex-12-004",
+          "source_event_id": "ex-12-004",
+          "status": "monitoring",
+          "subject_id": "order-ex-12",
+          "type": "refund_outcome_unknown"
+        },
+        "ex-12-005": {
+          "actionable": true,
+          "exception_id": "ex-12-005",
+          "source_event_id": "ex-12-005",
+          "status": "actionable",
+          "subject_id": "order-ex-12",
+          "type": "refund_reservation_rejected"
+        }
+      },
+      "fulfillments": {},
+      "orders": {
+        "order-ex-12": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T17:30:00Z",
+          "delivery_state": "not_prepared",
+          "entity": "oak-ridge-management",
+          "expected_amount_atomic": 100000000,
+          "expected_atomic_amount": 100000000,
+          "idempotency_key": "purchase-ex-12",
+          "network": "eip155:84532",
+          "order_id": "order-ex-12",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-ex-12",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-ex-12-1": {
+          "attempt_id": "attempt-ex-12-1",
+          "evidence_claim": "eip155:84532|0xtxex12|0",
+          "order_id": "order-ex-12",
+          "outcome": "observed",
+          "timed_out": false
+        }
+      },
+      "refunds": {
+        "refund-ex-12-a": {
+          "amount_atomic": 70000000,
+          "atomic_amount": 70000000,
+          "destination": "0xpayer12",
+          "order_id": "order-ex-12",
+          "original_transaction_ref": "0xtxex12",
+          "payment_id": "attempt-ex-12-1",
+          "refund_id": "refund-ex-12-a",
+          "sequence": 4,
+          "source_event_type": "refund_submitted_unknown",
+          "state": "submitted_unknown"
+        }
+      }
+    },
+    "hp-01": {
+      "applied_event_ids": [
+        "hp-01-001",
+        "hp-01-002",
+        "hp-01-003",
+        "hp-01-004",
+        "hp-01-005"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_verified",
+        "authorization_verified",
+        "resource_prepared",
+        "payment_observed",
+        "delivery_acknowledged"
+      ],
+      "chain_observations": {
+        "hp-01-004": {
+          "amount_atomic": 12500000,
+          "asset": "USDC",
+          "attempt_id": "attempt-hp-01-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxhp01|0",
+          "event_id": "hp-01-004",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-hp-01",
+          "recipient": "0xmerchant01",
+          "sequence": 4,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxhp01"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxhp01|0": "order-hp-01"
+      },
+      "exceptions": {},
+      "fulfillments": {
+        "order-hp-01": {
+          "client_acknowledgment": "ack-hp-01",
+          "delivery_id": "delivery-hp-01-1",
+          "order_id": "order-hp-01",
+          "resource_digest": "sha256:report-hp-01",
+          "sequence": 5,
+          "source_event_type": "delivery_acknowledged",
+          "state": "delivered"
+        }
+      },
+      "orders": {
+        "order-hp-01": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T15:00:00Z",
+          "delivery_state": "delivered",
+          "entity": "northstar-research",
+          "expected_amount_atomic": 12500000,
+          "expected_atomic_amount": 12500000,
+          "idempotency_key": "purchase-hp-01",
+          "network": "eip155:84532",
+          "order_id": "order-hp-01",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-hp-01",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-hp-01-1": {
+          "attempt_id": "attempt-hp-01-1",
+          "authorization_fingerprint": "auth-hp-01-1",
+          "evidence_claim": "eip155:84532|0xtxhp01|0",
+          "order_id": "order-hp-01",
+          "outcome": "observed",
+          "sequence": 2,
+          "source_event_type": "authorization_verified",
+          "timed_out": false,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    },
+    "hp-02": {
+      "applied_event_ids": [
+        "hp-02-001",
+        "hp-02-002",
+        "hp-02-003",
+        "hp-02-004",
+        "hp-02-005"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_verified",
+        "authorization_verified",
+        "resource_prepared",
+        "payment_observed",
+        "delivery_acknowledged"
+      ],
+      "chain_observations": {
+        "hp-02-004": {
+          "amount_atomic": 25000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-hp-02-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxhp02|0",
+          "event_id": "hp-02-004",
+          "finality_stage": "l1_batch_finality",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-hp-02",
+          "recipient": "0xmerchant01",
+          "sequence": 4,
+          "source_event_type": "payment_observed",
+          "stage": "l1_batch_finality",
+          "transaction_ref": "0xtxhp02"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxhp02|0": "order-hp-02"
+      },
+      "exceptions": {},
+      "fulfillments": {
+        "order-hp-02": {
+          "client_acknowledgment": "ack-hp-02",
+          "delivery_id": "delivery-hp-02-1",
+          "order_id": "order-hp-02",
+          "resource_digest": "sha256:report-hp-02",
+          "sequence": 5,
+          "source_event_type": "delivery_acknowledged",
+          "state": "delivered"
+        }
+      },
+      "orders": {
+        "order-hp-02": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T16:00:00Z",
+          "delivery_state": "delivered",
+          "entity": "atlas-capital",
+          "expected_amount_atomic": 25000000,
+          "expected_atomic_amount": 25000000,
+          "idempotency_key": "purchase-hp-02",
+          "network": "eip155:84532",
+          "order_id": "order-hp-02",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-hp-02",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-hp-02-1": {
+          "attempt_id": "attempt-hp-02-1",
+          "authorization_fingerprint": "auth-hp-02-1",
+          "evidence_claim": "eip155:84532|0xtxhp02|0",
+          "order_id": "order-hp-02",
+          "outcome": "observed",
+          "sequence": 2,
+          "source_event_type": "authorization_verified",
+          "timed_out": false,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    },
+    "hp-03": {
+      "applied_event_ids": [
+        "hp-03-001",
+        "hp-03-002",
+        "hp-03-003",
+        "hp-03-004",
+        "hp-03-005"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_verified",
+        "authorization_verified",
+        "resource_prepared",
+        "payment_observed",
+        "delivery_acknowledged"
+      ],
+      "chain_observations": {
+        "hp-03-004": {
+          "amount_atomic": 5000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-hp-03-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxhp03|0",
+          "event_id": "hp-03-004",
+          "finality_stage": "l2_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-hp-03",
+          "recipient": "0xmerchant01",
+          "sequence": 4,
+          "source_event_type": "payment_observed",
+          "stage": "l2_inclusion",
+          "transaction_ref": "0xtxhp03"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxhp03|0": "order-hp-03"
+      },
+      "exceptions": {},
+      "fulfillments": {
+        "order-hp-03": {
+          "client_acknowledgment": "ack-hp-03",
+          "delivery_id": "delivery-hp-03-1",
+          "order_id": "order-hp-03",
+          "resource_digest": "sha256:report-hp-03",
+          "sequence": 5,
+          "source_event_type": "delivery_acknowledged",
+          "state": "delivered"
+        }
+      },
+      "orders": {
+        "order-hp-03": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T14:45:00Z",
+          "delivery_state": "delivered",
+          "entity": "bluebird-advisors",
+          "expected_amount_atomic": 5000000,
+          "expected_atomic_amount": 5000000,
+          "idempotency_key": "purchase-hp-03",
+          "network": "eip155:84532",
+          "order_id": "order-hp-03",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-hp-03",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-hp-03-1": {
+          "attempt_id": "attempt-hp-03-1",
+          "authorization_fingerprint": "auth-hp-03-1",
+          "evidence_claim": "eip155:84532|0xtxhp03|0",
+          "order_id": "order-hp-03",
+          "outcome": "observed",
+          "sequence": 2,
+          "source_event_type": "authorization_verified",
+          "timed_out": false,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    },
+    "hp-04": {
+      "applied_event_ids": [
+        "hp-04-001",
+        "hp-04-002",
+        "hp-04-003",
+        "hp-04-004",
+        "hp-04-005"
+      ],
+      "business_events": [
+        "order_opened",
+        "order_opened",
+        "authorization_verified",
+        "authorization_verified",
+        "resource_prepared",
+        "payment_observed",
+        "delivery_acknowledged"
+      ],
+      "chain_observations": {
+        "hp-04-004": {
+          "amount_atomic": 100000000,
+          "asset": "USDC",
+          "attempt_id": "attempt-hp-04-1",
+          "canonical": true,
+          "claim_key": "eip155:84532|0xtxhp04|0",
+          "event_id": "hp-04-004",
+          "finality_stage": "l1_batch_inclusion",
+          "log_index": 0,
+          "network": "eip155:84532",
+          "order_id": "order-hp-04",
+          "recipient": "0xmerchant01",
+          "sequence": 4,
+          "source_event_type": "payment_observed",
+          "stage": "l1_batch_inclusion",
+          "transaction_ref": "0xtxhp04"
+        }
+      },
+      "evidence_claims": {
+        "eip155:84532|0xtxhp04|0": "order-hp-04"
+      },
+      "exceptions": {},
+      "fulfillments": {
+        "order-hp-04": {
+          "client_acknowledgment": "ack-hp-04",
+          "delivery_id": "delivery-hp-04-1",
+          "order_id": "order-hp-04",
+          "resource_digest": "sha256:report-hp-04",
+          "sequence": 5,
+          "source_event_type": "delivery_acknowledged",
+          "state": "delivered"
+        }
+      },
+      "orders": {
+        "order-hp-04": {
+          "asset": "USDC",
+          "deadline": "2026-01-05T18:00:00Z",
+          "delivery_state": "delivered",
+          "entity": "cedar-fund",
+          "expected_amount_atomic": 100000000,
+          "expected_atomic_amount": 100000000,
+          "idempotency_key": "purchase-hp-04",
+          "network": "eip155:84532",
+          "order_id": "order-hp-04",
+          "payment_state": "observed",
+          "recipient": "0xmerchant01",
+          "resource_digest": "sha256:report-hp-04",
+          "sequence": 1,
+          "source_event_type": "order_opened"
+        }
+      },
+      "payment_attempts": {
+        "attempt-hp-04-1": {
+          "attempt_id": "attempt-hp-04-1",
+          "authorization_fingerprint": "auth-hp-04-1",
+          "evidence_claim": "eip155:84532|0xtxhp04|0",
+          "order_id": "order-hp-04",
+          "outcome": "observed",
+          "sequence": 2,
+          "source_event_type": "authorization_verified",
+          "timed_out": false,
+          "verification_result": "valid"
+        }
+      },
+      "refunds": {}
+    }
+  }
+}

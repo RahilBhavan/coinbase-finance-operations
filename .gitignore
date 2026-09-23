@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules
+work/node_modules
+work/xlsx-runtime/
+work/video-deps/
+work/pycache/
+work/pdf-preview/
+work/video-preview/
+work/workbook-preview/
+work/demo-narration.aiff
+work/demo-silent.mp4
+work/demo.mov
+work/build_demo
+*.inspect.ndjson
