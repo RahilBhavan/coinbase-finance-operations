@@ -1,4 +1,8 @@
+import os
 from pathlib import Path
+
+# Fixed PDF dates and document ID so rebuilds are byte-identical.
+os.environ.setdefault("SOURCE_DATE_EPOCH", "1789862400")  # 2026-09-20T00:00:00Z
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT, TA_RIGHT
 from reportlab.lib.pagesizes import LETTER
@@ -77,5 +81,5 @@ story = [
 ]
 
 for target in (out, user_out):
-    doc = SimpleDocTemplate(str(target), pagesize=LETTER, rightMargin=0.65*inch, leftMargin=0.65*inch, topMargin=0.58*inch, bottomMargin=0.7*inch, title="Settlement exception desk decision memo", author="Rahil Bhavan")
+    doc = SimpleDocTemplate(str(target), pagesize=LETTER, rightMargin=0.65*inch, leftMargin=0.65*inch, topMargin=0.58*inch, bottomMargin=0.7*inch, title="Settlement exception desk decision memo", author="Rahil Bhavan", invariant=1)
     doc.build(list(story), onFirstPage=footer, onLaterPages=footer)
