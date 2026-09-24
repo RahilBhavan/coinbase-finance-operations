@@ -120,8 +120,10 @@ def _policy_table(policy_results: Any) -> str:
     ).format(headings, rows)
 
 
-# The replacement gate was set before the run: the candidate must cut overdue
-# cases by at least 15% versus FIFO with zero control failures.
+# The replacement gate was set before the run (01-brief/decision.md): at least 15%
+# fewer overdue cases than FIFO, zero control failures, and no more than 10% worse
+# value-weighted overdue in any adverse scenario. The summary can check the first
+# two; if both pass it defers to the memo instead of claiming a pass.
 _GATE_CANDIDATE, _GATE_MIN_CUT = "deadline_first", 0.15
 
 
@@ -139,7 +141,7 @@ def _summary(policy_results: Any, sweep: Optional[Mapping[str, Any]]) -> str:
     vwo = "value_weighted_overdue_minutes"
     best = min(others, key=lambda name: others[name][vwo])
     cut = 1 - candidate["overdue_count"] / fifo["overdue_count"] if fifo["overdue_count"] else 0.0
-    passed = cut >= _GATE_MIN_CUT and candidate["total_control_failures"] == 0
+    checkable = cut >= _GATE_MIN_CUT and candidate["total_control_failures"] == 0
     vwo_leader = max(stats, key=lambda name: stats[name][vwo]["win_rate"])
     p95 = "p95_resolution_delay_minutes"
     facts = [
@@ -149,7 +151,7 @@ def _summary(policy_results: Any, sweep: Optional[Mapping[str, Any]]) -> str:
         ("Replacement gate ({})".format(_policy_label(_GATE_CANDIDATE)),
          "{} value-weighted overdue cut, but overdue cases {} vs {}: {}".format(
              _pct(1 - candidate[vwo] / fifo[vwo]), candidate["overdue_count"], fifo["overdue_count"],
-             "passed" if passed else "not passed")),
+             "first two tests met; adverse-scenario test in the memo" if checkable else "not passed")),
         ("Win rate on value-weighted overdue",
          "FIFO {} vs {} {}".format(_pct(stats["fifo"][vwo]["win_rate"], 1), _policy_label(vwo_leader),
                                    _pct(stats[vwo_leader][vwo]["win_rate"], 1))),
@@ -158,8 +160,8 @@ def _summary(policy_results: Any, sweep: Optional[Mapping[str, Any]]) -> str:
          if max(stats, key=lambda name: stats[name][p95]["win_rate"]) == "fifo"
          else "FIFO {}".format(_pct(stats["fifo"][p95]["win_rate"], 1))),
     ]
-    answer = ("FIFO stays because the predeclared replacement gate did not pass. " if not passed
-              else "{} passed the predeclared replacement gate. ".format(_policy_label(_GATE_CANDIDATE)))
+    answer = ("FIFO stays because the predeclared replacement gate did not pass. " if not checkable
+              else "{} meets the overdue and control tests of the predeclared gate; the memo covers the adverse-scenario test. ".format(_policy_label(_GATE_CANDIDATE)))
     answer += "Across {:,} simulated scenarios, no queue policy wins on every objective.".format(
         int(sweep.get("scenario_count", 0)))
     return (
