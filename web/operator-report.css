@@ -13,6 +13,16 @@ h3 { font-size:1rem; }
 p,li { text-wrap:pretty; }
 .subtitle,.note,footer,.timeline-meta { color:var(--muted); }
 section { break-inside:avoid; margin:1.5rem 0 2rem; }
+.summary { background:#eef3ff; border-left:4px solid var(--accent); border-radius:.5rem; margin:1rem 0 0; padding:1rem 1.25rem; }
+.summary h2 { border:0; margin:0 0 .5rem; padding:0; }
+.summary p { margin:.35rem 0; }
+.summary .answer { font-size:1.1rem; font-weight:750; }
+.key-numbers { display:grid; gap:.75rem; grid-template-columns:repeat(auto-fit,minmax(14rem,1fr)); margin:.75rem 0; }
+.key-numbers div { background:var(--paper); border:1px solid var(--line); border-radius:.5rem; padding:.6rem .75rem; }
+.key-numbers dt { color:var(--muted); font-size:.85rem; }
+.key-numbers dd { font-weight:750; }
+.jump-links { display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; list-style:none; margin:.5rem 0 0; padding:0; }
+.jump-links a { display:inline-block; font-weight:700; min-height:44px; padding:.6rem 0; }
 .desk-tools { align-items:end; background:#eef3ff; border-radius:.75rem; display:grid; gap:1rem; grid-template-columns:minmax(12rem,1fr) auto minmax(12rem,1fr); padding:1rem; }
 .desk-tools label,.desk-tools legend { font-weight:700; }
 .desk-tools select { background:#fff; border:1px solid #8391a0; border-radius:.35rem; color:var(--ink); display:block; font:inherit; min-height:44px; padding:.45rem .75rem; width:100%; }
@@ -57,7 +67,8 @@ footer { border-top:1px solid var(--line); font-size:.8rem; }
   body { background:#fff; color:#000; font-size:10pt; }
   .report-header,main,footer { max-width:none; padding:.5rem 0; }
   .simulation-label { background:none; border:3px solid #000; color:#000; margin:0 0 1rem; }
-  .desk-tools,.simulation-control,.skip-link { display:none; }
+  .desk-tools,.simulation-control,.skip-link,.jump-links { display:none; }
+  .summary,.key-numbers div { background:none; border-color:#000; }
   .case-panel[hidden] { display:none; }
   .state-card,.allowed,.forbidden { background:none; border-color:#000; }
   a { color:#000; text-decoration:none; }

@@ -120,6 +120,63 @@ def _policy_table(policy_results: Any) -> str:
     ).format(headings, rows)
 
 
+# The replacement gate was set before the run: the candidate must cut overdue
+# cases by at least 15% versus FIFO with zero control failures.
+_GATE_CANDIDATE, _GATE_MIN_CUT = "deadline_first", 0.15
+
+
+def _pct(value: float, places: int = 0) -> str:
+    return "{:.{}%}".format(value, places)
+
+
+def _summary(policy_results: Any, sweep: Optional[Mapping[str, Any]]) -> str:
+    policies = _policy_mapping(policy_results)
+    stats = sweep.get("summary", {}) if isinstance(sweep, Mapping) else {}
+    fifo, candidate = policies.get("fifo"), policies.get(_GATE_CANDIDATE)
+    others = {name: m for name, m in policies.items() if name != "fifo"}
+    if not fifo or not candidate or not others or not stats.get("fifo"):
+        return ""
+    vwo = "value_weighted_overdue_minutes"
+    best = min(others, key=lambda name: others[name][vwo])
+    cut = 1 - candidate["overdue_count"] / fifo["overdue_count"] if fifo["overdue_count"] else 0.0
+    passed = cut >= _GATE_MIN_CUT and candidate["total_control_failures"] == 0
+    vwo_leader = max(stats, key=lambda name: stats[name][vwo]["win_rate"])
+    p95 = "p95_resolution_delay_minutes"
+    facts = [
+        ("Value-weighted overdue, base workload",
+         "FIFO {} vs {} {} USDC-minutes".format(_metric_value(vwo, fifo[vwo]), _policy_label(best),
+                                                _metric_value(vwo, others[best][vwo]))),
+        ("Replacement gate ({})".format(_policy_label(_GATE_CANDIDATE)),
+         "{} value-weighted overdue cut, but overdue cases {} vs {}: {}".format(
+             _pct(1 - candidate[vwo] / fifo[vwo]), candidate["overdue_count"], fifo["overdue_count"],
+             "passed" if passed else "not passed")),
+        ("Win rate on value-weighted overdue",
+         "FIFO {} vs {} {}".format(_pct(stats["fifo"][vwo]["win_rate"], 1), _policy_label(vwo_leader),
+                                   _pct(stats[vwo_leader][vwo]["win_rate"], 1))),
+        ("Win rate on p95 resolution delay",
+         "FIFO {}, the best of any policy on this metric".format(_pct(stats["fifo"][p95]["win_rate"], 1))
+         if max(stats, key=lambda name: stats[name][p95]["win_rate"]) == "fifo"
+         else "FIFO {}".format(_pct(stats["fifo"][p95]["win_rate"], 1))),
+    ]
+    answer = ("FIFO stays because the predeclared replacement gate did not pass. " if not passed
+              else "{} passed the predeclared replacement gate. ".format(_policy_label(_GATE_CANDIDATE)))
+    answer += "Across {:,} simulated scenarios, no queue policy wins on every objective.".format(
+        int(sweep.get("scenario_count", 0)))
+    return (
+        '<section id="summary" class="summary" aria-labelledby="summary-heading">'
+        '<h2 id="summary-heading">Result</h2>'
+        '<p class="question">When payment evidence and delivery evidence disagree, which case should an operator handle first?</p>'
+        '<p class="answer">{}</p><dl class="key-numbers">{}</dl>'
+        '<p class="note">How to read this page: start with the result, check the numbers in the policy '
+        'comparison, then open a case to see the evidence behind it.</p>'
+        '<nav aria-label="Page sections"><ul class="jump-links">'
+        '<li><a href="#policy-comparison">Policy comparison</a></li>'
+        '<li><a href="#case-workspace">Case desk</a></li>'
+        '<li><a href="operations-memo.pdf">Operations memo (PDF)</a></li></ul></nav></section>'
+    ).format(escape(answer), "".join(
+        "<div><dt>{}</dt><dd>{}</dd></div>".format(escape(label), escape(value)) for label, value in facts))
+
+
 def _timeline(projection: Mapping[str, Any]) -> str:
     events = _first(projection, ("evidence_timeline", "timeline", "events"), [])
     if not isinstance(events, Iterable) or isinstance(events, (str, bytes, Mapping)):
@@ -199,11 +256,12 @@ def _case_panel(projection: Mapping[str, Any], exception: Mapping[str, Any], ind
 
 
 def render_operator_report(projection: Mapping[str, Any], exception: Mapping[str, Any], policy_results: Any, *,
-                           title: str = "Settlement-to-delivery exception",
+                           title: str = "x402 payment exception desk",
                            stylesheet_href: str = "operator-report.css",
                            script_src: str = "operator-report.js",
                            cases: Optional[Sequence[Mapping[str, Any]]] = None,
-                           traceability: Optional[Mapping[str, Any]] = None) -> str:
+                           traceability: Optional[Mapping[str, Any]] = None,
+                           sweep: Optional[Mapping[str, Any]] = None) -> str:
     """Return a complete interactive and printable report for simulated cases.
 
     Optional ``cases`` entries can provide ``projection``, ``exception``, and
@@ -255,13 +313,14 @@ def render_operator_report(projection: Mapping[str, Any], exception: Mapping[str
     <h1>{title}</h1>
     <p class="subtitle">Operator decision support. Verify evidence and authorization before acting.</p>
     <p><a href="operations-memo.pdf">Download the operations memo (PDF)</a></p>
+    {summary}
   </header>
   <main id="case-workspace" tabindex="-1">{toolbar}{panels}{policy}</main>
   <footer>SIMULATED • Independent synthetic case study • Not affiliated with or endorsed by Coinbase • No live actions</footer>
 </body>
 </html>
 """.format(title=escape(title), stylesheet=escape(stylesheet_href, quote=True),
-           script=escape(script_src, quote=True), toolbar=toolbar, panels="".join(panels),
+           script=escape(script_src, quote=True), summary=_summary(policy_results, sweep), toolbar=toolbar, panels="".join(panels),
            policy=_section("Queue-policy comparison: absolute metrics", _policy_table(policy_results), "policy-comparison"))
 
 

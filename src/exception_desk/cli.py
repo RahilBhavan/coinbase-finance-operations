@@ -97,7 +97,7 @@ def build(root: Path) -> dict[str, Any]:
     cases = [_ui_case(fid, es, states[fid], expected[fid], meta) for fid, es in groups.items()]
     first = cases[0]; report = output / "operator-report.html"
     write_operator_report(report, first["projection"], first["exception"], results,
-        stylesheet_href="operator-report.css", cases=cases[1:], traceability=first["traceability"])
+        stylesheet_href="operator-report.css", cases=cases[1:], traceability=first["traceability"], sweep=scenario)
     html = report.read_text(encoding="utf-8")
     attrs = " ".join(f'data-{k.replace("_", "-")}="{meta[k]}"' for k in ("run_id", "fixture_sha256", "oracle_sha256", "policy_workload_hash"))
     html = html.replace('<html lang="en" class="no-js">', f'<html lang="en" class="no-js" {attrs}>').replace(

@@ -169,6 +169,39 @@ class OperatorReportTests(unittest.TestCase):
         for heading in ("FIFO", "Deadline First", "Value First", "Hybrid"):
             self.assertIn('<th scope="col">{}</th>'.format(heading), report)
 
+    def test_summary_block_leads_with_the_result(self):
+        policies = {
+            "fifo": {"overdue_count": 6, "total_control_failures": 0,
+                     "value_weighted_overdue_minutes": 4428900000.0},
+            "deadline_first": {"overdue_count": 6, "total_control_failures": 0,
+                               "value_weighted_overdue_minutes": 1582200000.0},
+            "hybrid": {"overdue_count": 4, "total_control_failures": 0,
+                       "value_weighted_overdue_minutes": 982100000.0},
+        }
+        metric = lambda vwo, p95: {"value_weighted_overdue_minutes": {"win_rate": vwo},
+                                   "p95_resolution_delay_minutes": {"win_rate": p95}}
+        sweep = {"scenario_count": 3600, "summary": {
+            "fifo": metric(0.074, 0.5), "deadline_first": metric(0.22, 0.111), "hybrid": metric(0.405, 0.213)}}
+
+        report = render_operator_report(self.projection, self.exception, policies, sweep=sweep)
+
+        self.assertIn("<h1>x402 payment exception desk</h1>", report)
+        summary = report.index('id="summary"')
+        self.assertLess(report.index("SIMULATED DATA"), summary)
+        self.assertLess(summary, report.index('id="case-panel-0"'))
+        for fragment in (
+            "FIFO stays because the predeclared replacement gate did not pass.",
+            "Across 3,600 simulated scenarios, no queue policy wins on every objective.",
+            "FIFO 4,428.9 vs Hybrid 982.1 USDC-minutes",
+            "64% value-weighted overdue cut, but overdue cases 6 vs 6: not passed",
+            "FIFO 7.4% vs Hybrid 40.5%",
+            "FIFO 50.0%, the best of any policy on this metric",
+            "How to read this page",
+            'href="#policy-comparison"', 'href="#case-workspace"', 'href="operations-memo.pdf"',
+        ):
+            self.assertIn(fragment, report)
+        self.assertNotIn('id="summary"', render_operator_report(self.projection, self.exception, policies))
+
     def test_missing_fields_are_visible_and_report_can_be_written(self):
         report = render_operator_report({}, {}, {})
         self.assertIn("Not provided", report)
