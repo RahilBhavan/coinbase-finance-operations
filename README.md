@@ -80,7 +80,7 @@ PYTHONPATH=src python3 -m exception_desk.cli --root .     # regenerate outputs
 open artifacts/generated/operator-report.html             # view the report locally
 ```
 
-The release checks the memo, workbook, and video but does not rebuild them. Rebuilding them needs extra tools: `work/build_memo.py` needs `reportlab`, `work/build_demo.py` needs `Pillow` and `imageio-ffmpeg`, and `work/build_workbook.mjs` needs `@oai/artifact-tool`, a private Node runtime that is not publicly available. The committed files are the reference copies.
+The release checks the memo, workbook, and video but does not rebuild them. Rebuilding them needs extra tools: `work/build_memo.py` needs `reportlab` and `work/build_demo.py` needs `Pillow` and `imageio-ffmpeg`. The workbook is built with a separate spreadsheet tool that is not part of this repo; the committed workbook is the source of truth.
 
 ## Scope and limits
 
